@@ -3,7 +3,7 @@ using Xunit;
 
 namespace BangazonCLI.Tests
 {
-    public class UnitTest1
+    public class OrdersShould
     {
         [Fact]
         public void Test1()
