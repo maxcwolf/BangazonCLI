@@ -19,7 +19,12 @@ namespace BangazonCLI.Tests
             pm.AddProduct(NewProduct);
 
 
-            Assert.Contains(NewProduct, pm.GetCustomerProducts);
+            Assert.Contains(NewProduct, pm.GetCustomerProducts(1));
+        }
+
+        public void ListCustomerProducts()
+        {
+            
         }
     }
 }
