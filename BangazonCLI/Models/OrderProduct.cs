@@ -1,16 +1,20 @@
+// Chris Miller
+// Model of the OrderProduct join table
+
 namespace BangazonCLI.Models
 {
     public class OrderProduct
     {
-        private int _id { get; }
-        private int _customerId { get; }
-        private int _productId { get; }
+        // PK - OrderProduct Id
+        public int Id { get; }
+        public int OrderId { get; }
+        public int ProductId { get; }
 
         public OrderProduct()
         {
-            this._id = 1;
-            this._customerId = 1;
-            this._productId = 1;
+            this.Id = 1;
+            this.OrderId = 1;
+            this.ProductId = 1;
         }
     }
 }
