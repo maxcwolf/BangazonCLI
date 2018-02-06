@@ -9,12 +9,7 @@
 
 
 
-* **What kind of change does this PR introduce?**
-- [ ] Bug Fix
-- [ ] Feature
-- [ ] Document Update
-- [ ] Other (Please explain below)
-
+* **What kind of change does this PR introduce?** (Bug Fix, Feature, Document Update...)
 
 
 
