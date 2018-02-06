@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../BangazonCLI/BangazonCLI.csproj" />
+-    <ProjectReference Include="..\BangazonCLI\BangazonCLI.csproj" />	
   </ItemGroup>
 
 </Project>
