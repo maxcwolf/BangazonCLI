@@ -1,3 +1,5 @@
+//Author: Paul Ellis; Purpose: Test Payment class assocaited methods
+
 using System;
 using Xunit;
 using BangazonCLI;
@@ -14,7 +16,7 @@ namespace BangazonCLI.Tests
 
             Payment _TestPayment = new Payment(1, "Visa", "9999999999999999", 1);
 
-            //the payment type should be "Visa"
+            //_TestPayment.PaymentType should have the value of "Visa"
             Assert.Equal(_TestPayment.PaymentType, "Visa");
        }
    }
