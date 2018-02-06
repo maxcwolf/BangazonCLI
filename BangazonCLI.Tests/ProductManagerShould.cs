@@ -1,3 +1,4 @@
+//Author: Ray Medrano   //Purpose: This Will Test the ProductManager 
 using System;
 using BangazonCLI.Managers;
 using BangazonCLI.Models;
@@ -24,7 +25,7 @@ namespace BangazonCLI.Tests
 
         public void ListCustomerProducts()
         {
-            
+
         }
     }
 }

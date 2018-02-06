@@ -1,3 +1,4 @@
+//Author: Ray Medrano //Purpose: This is the Product Model
 using System;
 namespace BangazonCLI.Models
 {
@@ -9,8 +10,9 @@ namespace BangazonCLI.Models
         public string Description {get; set;} // Product Description
         public int Price {get; set;} // Product price stored as integer i.e. $19.95 = 1995
         public int Quantity {get; set;}//Product Quantity
-        public DateTime DateAdded {get; set;} // Date product was added to system
+        public DateTime DateAdded {get; set;} // Date product was added to system (calculated at creation)
 
+        //This is the default constructor for the Product Class, using the arguments listed above
         public Product()
         {
             this.Id = 1;
