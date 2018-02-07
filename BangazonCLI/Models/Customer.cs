@@ -12,11 +12,11 @@ namespace BangazonCLI.Models
         public string Street { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int Zip { get; set; }
+        public string Zip { get; set; }
         public string Phone { get; set; }
 
         //method that specifies what can be passed into the Customer class for a customer that will be stored in the customer table
-        public Customer(int id, string name, string street, string city, string state, int zip, string phone)
+        public Customer(int id, string name, string street, string city, string state, string zip, string phone)
         {
             this.Id = id;
             this.Name = name;
