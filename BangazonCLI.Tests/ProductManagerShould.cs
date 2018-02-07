@@ -29,12 +29,16 @@ namespace BangazonCLI.Tests
         {
             //create instance of ProductManager to use for test
            ProductManager pm = new ProductManager();
+
            //create a new product with a customer id of 1
            Product NewProduct1 = new Product(1, 1, "NewProduct1", "This is a dummy Product1", 2000, 2);
+
            //add newproduct1 to product list
            pm.AddProduct(NewProduct1);
+
            //create a new product with a customer id of 2
            Product NewProduct2 = new Product(2, 2, "NewProduct2", "This is a dummy Product2",42000, 4);
+           
            //add newProduct2 to product list
            pm.AddProduct(NewProduct2);
 
