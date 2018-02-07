@@ -38,11 +38,11 @@ namespace BangazonCLI.Tests
 
            //create a new product with a customer id of 2
            Product NewProduct2 = new Product(2, 2, "NewProduct2", "This is a dummy Product2",42000, 4);
-           
+
            //add newProduct2 to product list
            pm.AddProduct(NewProduct2);
 
-            Assert.DoesNotContain(NewProduct1, pm.GetNonActiveUserProduct);
+            Assert.DoesNotContain(NewProduct1, pm.GetNonActiveUserProduct(1));
         }
 
     }
