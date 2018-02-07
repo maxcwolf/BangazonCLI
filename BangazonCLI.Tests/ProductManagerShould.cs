@@ -24,5 +24,17 @@ namespace BangazonCLI.Tests
             Assert.Contains(NewProduct, pm.GetCustomerProducts(1));
         }
 
+        [Fact]
+        public void FindAllProductsNotForActiveCustomer()
+        {
+            //create instance of ProductManager to use for test
+           ProductManager pm = new ProductManager();
+           //create a new product
+           Product NewProduct1 = new Product(1, 1, "NewProduct1", "This is a dummy Product1", 2000, 2);
+
+
+            Assert.DoesNotContain(NewProduct1, pm.GetNonActiveUserProduct);
+        }
+
     }
 }
