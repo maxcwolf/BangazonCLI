@@ -30,6 +30,9 @@ namespace BangazonCLI.Menus
             if (choice == 1)
             {
                 AddCustomerMenu.Show();
+            } else if (choice == 2)
+            {
+                ActiveCustomerMenu.Show();
             }
         }
     }
