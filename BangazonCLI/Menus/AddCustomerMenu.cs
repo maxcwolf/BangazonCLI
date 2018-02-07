@@ -1,3 +1,5 @@
+//Author: Max Wolf
+//Purpose: Presents a command line interface to enter new customer data
 using System;
 using System.Collections.Generic;
 using System.Linq;
