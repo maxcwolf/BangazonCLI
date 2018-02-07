@@ -1,3 +1,6 @@
+//Chris Miller
+//Integration tests for OrderProdcut / OrderProduct Manager
+
 using System;
 using BangazonCLI.Managers;
 using BangazonCLI.Models;
