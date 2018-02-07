@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Author: Max Wolf
+//Purpose: Entry point to the command line interface menus
+using System;
 using BangazonCLI.Menus;
 
 namespace BangazonCLI
@@ -7,23 +9,8 @@ namespace BangazonCLI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine ("WELCOME TO THE BANGAZON CLI");
-            Console.WriteLine ("*********************************");
-            Console.WriteLine ("1. Add a new customer");
-            Console.WriteLine ("2. Select active customer");
-			Console.Write ("> ");
-
-			// Read in the user's choice
-			int choice;
-			Int32.TryParse (Console.ReadLine(), out choice);
-
-            if (choice == 1)
-            {
-                AddCustomerMenu.Show();
-            }
-
-
-
+            //Show the main menu on load
+            MainMenu.Show();
 
         }
     }

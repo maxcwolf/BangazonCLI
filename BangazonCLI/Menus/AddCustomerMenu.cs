@@ -78,6 +78,13 @@ namespace BangazonCLI.Menus
 
             //Adds customer to the customer table
             manager.Add(customer);
+
+            //After all customer information is entered, clear the menu and let them press any key to return
+            //to the main menu
+            Console.Clear();
+            Console.WriteLine("Thank you. Press any key to return to the main menu");
+            Console.ReadKey();
+            MainMenu.Show();
         }
     }
 }
