@@ -39,6 +39,14 @@ namespace BangazonCLI.Menus
             });
             Console.Write ("> ");
             
+            Console.WriteLine("Enter 'Q' to Return To Main Menu");
+
+            var Result = Console.ReadLine();
+            if ( Result == "q" || Result == "Q" )
+            {
+                MainMenu.Show();
+            } 
+
             //Pull out the selected item from the user input
             Product productSelected =  productList[int.Parse(Console.ReadLine())];
 
@@ -58,7 +66,7 @@ namespace BangazonCLI.Menus
                 orderProductManager.Add(new OrderProduct(ActiveOrderId, productSelected.Id));
             }
 
-            MainMenu.Show();
+            // MainMenu.Show();
         }
     }
 }
