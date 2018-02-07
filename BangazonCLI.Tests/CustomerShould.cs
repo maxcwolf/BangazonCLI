@@ -23,6 +23,7 @@ namespace BangazonCLI.Tests
             );
         }
 
+
         [Fact]
         public void GetAllCustomers()
         {
@@ -41,9 +42,14 @@ namespace BangazonCLI.Tests
             Customer singleCustomer = manager.GetSingleCustomer(1);
 
 
-            Assert.Equal(singleCustomer.Id, 1);
-            Assert.Equal(singleCustomer.Name, "Rang");
-            Assert.Equal(singleCustomer.Street, "123 DerpyDerp");
+            Assert.Equal(1, singleCustomer.Id);
+            Assert.Equal("Rang Dipkin", singleCustomer.Name);
+            Assert.Equal("123 Derp Way", singleCustomer.Street);
+            Assert.Equal("Derpville", singleCustomer.City);
+            Assert.Equal("TN", singleCustomer.State);
+            Assert.Equal(12345, singleCustomer.Zip);
+            Assert.Equal(1234567890, singleCustomer.Phone);
+
 
 
         }

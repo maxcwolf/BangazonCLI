@@ -18,9 +18,9 @@ namespace BangazonCLI.Managers
             return _customerTable;
         }
 
-        // public Customer GetSingleCustomer(int id)
-        // {
-        //     return _customerTable.Where(j => j.Id == id).Single();
-        // }
+        public Customer GetSingleCustomer(int id)
+        {
+            return _customerTable.Where(j => j.Id == id).Single();
+        }
     }
 }
