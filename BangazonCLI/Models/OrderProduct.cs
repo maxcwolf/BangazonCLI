@@ -10,6 +10,7 @@ namespace BangazonCLI.Models
         public int OrderId { get; }
         public int ProductId { get; }
 
+        // Blank Constructor to create a dummy instance of the class
         public OrderProduct()
         {
             this.Id = 1;
