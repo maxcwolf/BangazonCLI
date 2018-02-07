@@ -10,6 +10,8 @@ namespace BangazonCLI.Menus
     {
         public static void Show()
         {
+            //clear the console menu
+            Console.Clear();
 
             //Prompt the user to enter the customer name
             Console.WriteLine ("Please create a new account");
@@ -21,6 +23,7 @@ namespace BangazonCLI.Menus
 			string name = Console.ReadLine();
 
             //Prompt the user to enter the customer street
+            Console.WriteLine("----");
             Console.WriteLine ("2. Enter customer street address");
 			Console.Write ("> ");
 
@@ -28,6 +31,7 @@ namespace BangazonCLI.Menus
             string street = Console.ReadLine();
 
             //Prompt the user to enter the customer city
+            Console.WriteLine("----");
             Console.WriteLine ("3. Enter customer city");
 			Console.Write ("> ");
 
@@ -35,6 +39,7 @@ namespace BangazonCLI.Menus
             string city = Console.ReadLine();
 
             //Prompt the user to enter the customer state
+            Console.WriteLine("----");
             Console.WriteLine ("4. Enter customer state abbreviation (two capital letters)");
 			Console.Write ("> ");
 
@@ -42,6 +47,7 @@ namespace BangazonCLI.Menus
             string state = Console.ReadLine();
 
             //Prompt the user to enter the customer zip
+            Console.WriteLine("----");
             Console.WriteLine ("5. Enter customer zip code (5-digit number)");
 			Console.Write ("> ");
 
@@ -49,6 +55,7 @@ namespace BangazonCLI.Menus
             string zip = Console.ReadLine();
 
             //Prompt the user to enter the customer phone
+            Console.WriteLine("----");
             Console.WriteLine ("6. Enter customer phone number (10 digit number without spaces or other characters)");
 			Console.Write ("> ");
 
