@@ -1,5 +1,9 @@
+//Author: Max Wolf
+//Purpose: Creates a model of what should be contained in the customer table
+
 namespace BangazonCLI.Models
 {
+    //model of Customer class
     public class Customer
     {
         public int Id { get; set; }
@@ -10,17 +14,7 @@ namespace BangazonCLI.Models
         public int Zip { get; set; }
         public long Phone { get; set; }
 
-        public Customer()
-        {
-            this.Id = 1;
-            this.Name = "Bob";
-            this.Street = "123 derp";
-            this.City = "Derpville";
-            this.State = "TN";
-            this.Zip = 37029;
-            this.Phone = 6155555555;
-        }
-
+        //method that specifies what can be passed into the Customer class for a customer that will be stored in the customer table
         public Customer(int id, string name, string street, string city, string state, int zip, int phone)
         {
             this.Id = id;
