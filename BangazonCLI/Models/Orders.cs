@@ -17,14 +17,8 @@ namespace BangazonCLI.Models
         //Foreign Key
         public int CustomerId { get; set; }
 
-        //Navigation Property
-        // public Customer Customer { get; set; }
-
         //Foreign Key
         public int? PaymentId { get; set; }
-
-        //Navigation Property
-        public Payment Payment { get; set; }
 
           //This is the default constructor for the Orders Class used for testing, using the arguments listed above
         public Orders()

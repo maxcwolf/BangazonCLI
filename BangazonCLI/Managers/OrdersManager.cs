@@ -1,3 +1,5 @@
+//Author: Chase Steely
+//Purpose: To manage the Orders Table.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,16 +27,16 @@ namespace BangazonCLI.Managers
             return OrdersList.Where(o => o.CustomerId == id && o.PaymentId == null).Single();
         }
 
+        //This method gets an Order that has not been completed; assigns a paymentId, and a Close date.
         public void CompleteOrder(int id, int paymentId)
         {
-           Orders ThisOrder =  OrdersList.Where(o => o.CustomerId == id && o.PaymentId == null).Single();
-           ThisOrder.PaymentId = paymentId;
-           ThisOrder.Closed = DateTime.Now;
+            Orders ThisOrder = OrdersList.Where(o => o.CustomerId == id && o.PaymentId == null).Single();
+            ThisOrder.PaymentId = paymentId;
+            ThisOrder.Closed = DateTime.Now;
         }
-
-          public Orders GetOrderByOrderId(int id)
+        //This method  returns a single order by Order Id.
+        public Orders GetOrderByOrderId(int id)
         {
-            //return a list of orders where CustomerId = id
             return OrdersList.Where(o => o.Id == id).Single();
         }
     }
