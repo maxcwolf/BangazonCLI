@@ -25,5 +25,14 @@ namespace BangazonCLI.Managers
             //return a list of products where CustomerId = id
             return ProductList.Where(p => p.CustomerId == id).ToList();
         }
+
+        //this method returns a list of products from the database where the customer id is not equal to the active user it accepts the following argument
+        // activeCustomerId = the id of the current active customer
+
+        public List<Product> GetNonActiveUserProduct(int activeCustomerId)
+        {
+            //return a list of products from the database where the CustomerId is NOT equal to active customer Id
+            return ProductList.Where(p => p.CustomerId != activeCustomerId).ToList();
+        }
     }
 }
