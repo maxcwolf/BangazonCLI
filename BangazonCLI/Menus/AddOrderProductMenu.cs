@@ -14,9 +14,9 @@ namespace BangazonCLI.Menus
         public static void Show(int ActiveCustomerId)
         {
             //These value need to be refactored to take in values from the active user and the active users current order
-            OrderManager orderManager = new OrderManager();
+            OrdersManager orderManager = new OrdersManager();
             
-            int ActiveOrderId = orderManager.GetOrderById(ActiveCustomerId);
+            int ActiveOrderId = orderManager.GetCustomerOrders(ActiveCustomerId).Id;
 
             //Class that interacts with the OrderProduct table
             OrderProductManager orderProductManager = new OrderProductManager();
@@ -25,7 +25,7 @@ namespace BangazonCLI.Menus
             ProductManager productManager = new ProductManager();
             
             //Returns a list of all products that are not owned by the active user
-            List<Product> productList =  productManager.GetNonActiveUserProduct(ActiveCustomeId);
+            List<Product> productList =  productManager.GetNonActiveUserProduct(ActiveCustomerId);
 
             //Build the prompt
             Console.Clear();

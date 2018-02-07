@@ -13,10 +13,13 @@ namespace BangazonCLI.Menus
     {
         public static void Show(int ActiveUserId)
         {
+            CustomerManager customerManager = new CustomerManager();
+            string ActiveCustomerName = customerManager.GetSingleCustomer(ActiveUserId).Name;
+
             //Clear any prior menu
             Console.Clear();
-            //Main menu that user is initially presented with
-            Console.WriteLine("Active User : ");
+            //Feature menu that user is presented with after an Active User is selected
+            Console.WriteLine($"Active User : {ActiveCustomerName}");
             Console.WriteLine("*********************************");
             Console.WriteLine("1. Create a payment option");
             Console.WriteLine("2. Add product to sell");
@@ -31,12 +34,15 @@ namespace BangazonCLI.Menus
             Console.WriteLine("Press 'Q' to return to Main Menu");
             Console.Write("> ");
 
+            //Take in the user input
             var Result = Console.ReadLine();
 
+            //If q or Q return to main menu
             if (Result == "q" || Result == "Q")
             {
                 MainMenu.Show();
             }
+            //Else run switch statement for options listed above, if any other input is detected, redisplay the menu
             else
             {
                 switch(Result)
@@ -46,6 +52,7 @@ namespace BangazonCLI.Menus
                     case "2":
                         break;
                     case "3":
+                        AddOrderProductMenu.Show(ActiveUserId);
                         break;
                     case "4":
                         break;
@@ -62,6 +69,7 @@ namespace BangazonCLI.Menus
                     case "10":
                         break;
                     default:
+                        FeatureMenu.Show(ActiveUserId);
                         break;
                 }
             }
