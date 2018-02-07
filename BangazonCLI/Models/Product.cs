@@ -24,5 +24,18 @@ namespace BangazonCLI.Models
             this.DateAdded = DateTime.Now;
         }
 
+        //This is an overloaded Product constructor that takes 6 arguments as defined above
+        // Id, CustomerId, Title, Description, Price, Quantity
+
+        public Product(int id, int customerId, string title, string description, int price, int quantity)
+        {
+            this.Id = id;
+            this.CustomerId = customerId;
+            this.Title = title;
+            this.Description = description;
+            this.Price = price;
+            this.Quantity = quantity;
+            this.DateAdded = DateTime.Now;
+        }
     }
 }
