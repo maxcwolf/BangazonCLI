@@ -48,6 +48,7 @@ namespace BangazonCLI.Menus
                 switch(Result)
                 {
                     case "1":
+                        AddPaymentMenu.Show(ActiveUserId);
                         break;
                     case "2":
                         AddProductMenu.Show(ActiveUserId);
