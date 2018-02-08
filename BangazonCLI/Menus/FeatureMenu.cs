@@ -50,6 +50,7 @@ namespace BangazonCLI.Menus
                     case "1":
                         break;
                     case "2":
+                        AddProductMenu.Show(ActiveUserId);
                         break;
                     case "3":
                         AddOrderProductMenu.Show(ActiveUserId);
