@@ -2,6 +2,7 @@
 using System;
 using BangazonCLI.Models;
 using BangazonCLI.Managers;
+using BangazonCLI.Menus;
 
 namespace BangazonCLI
 {
@@ -9,7 +10,7 @@ namespace BangazonCLI
   {
     //This method will prompt the user to create a new product for the active user and takes the following argument
     // CustomerID - The id number for the active customer
-    public static void Show(int CustomerId)
+    public static void Show(int ActiveCustomerId)
     {
       Console.Clear();
       Console.WriteLine ("BANGAZON PRODUCT CREATION SYSTEM");
@@ -50,7 +51,7 @@ namespace BangazonCLI
     //Create New Product using values collected above
       Product NewProduct = new Product(
         1,
-        CustomerId,
+        ActiveCustomerId,
         Title,
         Description,
         Price,
@@ -73,11 +74,11 @@ namespace BangazonCLI
       if (result.ToLower() == "y" )
       {
         //Re display the Add Product Menu if "y" is chosen
-        AddProductMenu.Show(CustomerId);
+        AddProductMenu.Show(ActiveCustomerId);
       } else
       {
         //display the Feature menu if anything other than y is chosen
-        //FeatureMenu.Show(CustomerId);
+        FeatureMenu.Show(ActiveCustomerId);
       }
 
 
