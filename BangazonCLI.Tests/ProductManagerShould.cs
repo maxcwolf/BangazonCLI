@@ -14,14 +14,14 @@ namespace BangazonCLI.Tests
         {
             //create instances of both the productManager and a new product
             ProductManager pm = new ProductManager();
-
-            Product NewProduct = new Product();
+            //create SQL Insert Statement to add to database
+            string NewProductString = "@$'INSERT INTO Product(Id, CustomerId, Title, Description, Price, Quantity, DateAdded)VALUES(null, Ray Medrano, Refrigerator, A 22 cubic foot refrigerator, 50000, 1, 2018-01-15)'";
 
             //Use the AddProduct method to add a new product
-            pm.AddProduct(NewProduct);
+            pm.AddProduct(NewProductString);
 
             //Assert that the Product List contains the new product that was added
-            Assert.Contains(NewProduct, pm.GetCustomerProducts(1));
+            Assert.Contains(NewProductString, pm.GetCustomerProducts(1));
         }
 
         [Fact]
