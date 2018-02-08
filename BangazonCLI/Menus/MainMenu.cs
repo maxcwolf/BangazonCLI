@@ -34,7 +34,6 @@ namespace BangazonCLI.Menus
             {
                 ActiveCustomerMenu.Show();
             }
-
         }
     }
 }

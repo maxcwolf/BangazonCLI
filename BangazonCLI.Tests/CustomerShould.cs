@@ -23,7 +23,7 @@ namespace BangazonCLI.Tests
                 "123 Derp Way",
                 "Derpville",
                 "TN",
-                12345,
+                "12345",
                 "1234567890"
             );
         }
@@ -61,7 +61,7 @@ namespace BangazonCLI.Tests
             Assert.Equal("123 Derp Way", singleCustomer.Street);
             Assert.Equal("Derpville", singleCustomer.City);
             Assert.Equal("TN", singleCustomer.State);
-            Assert.Equal(12345, singleCustomer.Zip);
+            Assert.Equal("12345", singleCustomer.Zip);
             Assert.Equal("1234567890", singleCustomer.Phone);
 
         }
