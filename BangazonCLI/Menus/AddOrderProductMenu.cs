@@ -16,7 +16,8 @@ namespace BangazonCLI.Menus
             //These value need to be refactored to take in values from the active user and the active users current order
             OrdersManager orderManager = new OrdersManager();
             
-            int ActiveOrderId = orderManager.GetCustomerOrders(ActiveCustomerId).Id;
+            // int ActiveOrderId = orderManager.GetCustomerOrders(ActiveCustomerId).Id;
+            int ActiveOrderId = 1;
 
             //Class that interacts with the OrderProduct table
             OrderProductManager orderProductManager = new OrderProductManager();

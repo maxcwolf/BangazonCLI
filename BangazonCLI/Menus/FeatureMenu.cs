@@ -14,12 +14,12 @@ namespace BangazonCLI.Menus
         public static void Show(int ActiveUserId)
         {
             CustomerManager customerManager = new CustomerManager();
-            string ActiveCustomerName = customerManager.GetSingleCustomer(ActiveUserId).Name;
+            // string ActiveCustomerName = customerManager.GetSingleCustomer(ActiveUserId).Name;
 
             //Clear any prior menu
             Console.Clear();
             //Feature menu that user is presented with after an Active User is selected
-            Console.WriteLine($"Active User : {ActiveCustomerName}");
+            // Console.WriteLine($"Active User : {ActiveCustomerName}");
             Console.WriteLine("*********************************");
             Console.WriteLine("1. Create a payment option");
             Console.WriteLine("2. Add product to sell");
