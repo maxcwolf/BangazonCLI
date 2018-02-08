@@ -8,10 +8,10 @@ namespace BangazonCLI.Data
         private string _connectionString;
         private SqliteConnection _connection;
 
-        public DatabaseInterface()
+        public DatabaseInterface(string Connection_String)
         {
-            // Replace {you} with the correct value
-            _connectionString = $"Data Source=./Data/BangazonCLI.db";
+            string _EV = $"{Environment.GetEnvironmentVariable(Connection_String)}";
+            _connectionString = $"Data Source={_EV}";
             _connection = new SqliteConnection(_connectionString);
         }
 
@@ -19,16 +19,16 @@ namespace BangazonCLI.Data
         {
             using (_connection)
             {
-                _connection.Open ();
-                SqliteCommand dbcmd = _connection.CreateCommand ();
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand();
                 dbcmd.CommandText = command;
 
                 using (SqliteDataReader dataReader = dbcmd.ExecuteReader())
                 {
-                    handler (dataReader);
+                    handler(dataReader);
                 }
 
-                dbcmd.Dispose ();
+                dbcmd.Dispose();
             }
         }
 
@@ -36,11 +36,11 @@ namespace BangazonCLI.Data
         {
             using (_connection)
             {
-                _connection.Open ();
-                SqliteCommand dbcmd = _connection.CreateCommand ();
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand();
                 dbcmd.CommandText = command;
-                dbcmd.ExecuteNonQuery ();
-                dbcmd.Dispose ();
+                dbcmd.ExecuteNonQuery();
+                dbcmd.Dispose();
             }
         }
 
@@ -50,22 +50,23 @@ namespace BangazonCLI.Data
 
             using (_connection)
             {
-                _connection.Open ();
-                SqliteCommand dbcmd = _connection.CreateCommand ();
+                _connection.Open();
+                SqliteCommand dbcmd = _connection.CreateCommand();
                 dbcmd.CommandText = command;
 
-                dbcmd.ExecuteNonQuery ();
+                dbcmd.ExecuteNonQuery();
 
                 this.Query("select last_insert_rowid()",
-                    (SqliteDataReader reader) => {
-                        while (reader.Read ())
+                    (SqliteDataReader reader) =>
+                    {
+                        while (reader.Read())
                         {
                             insertedItemId = reader.GetInt32(0);
                         }
                     }
                 );
 
-                dbcmd.Dispose ();
+                dbcmd.Dispose();
             }
 
             return insertedItemId;

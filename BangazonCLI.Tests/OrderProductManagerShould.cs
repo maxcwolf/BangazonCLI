@@ -2,6 +2,7 @@
 //Integration tests for OrderProdcut / OrderProduct Manager
 
 using System;
+using System.Collections.Generic;
 using BangazonCLI.Managers;
 using BangazonCLI.Models;
 using Xunit;
@@ -11,24 +12,32 @@ namespace BangazonCLI.Tests
     public class OrderProductManagerShould
     {
         //Create global variables for tests
-        private OrderProduct op {get; set;}
         private OrderProductManager opm {get; set;}
 
         //Constructor to instatiate OrderProductManager / OrderProduct
         public OrderProductManagerShould()
         {
-            this.opm = new OrderProductManager();
-            this.op = new OrderProduct();
+            this.opm = new OrderProductManager("BANGAZON_CLI_TEST");
         }
-
 
         //Test that the add function adds the object to the _orderProductList and the GetAllOrderProduct method returns it 
         [Fact]
         public void GetAllOrderProduct()
         {
-            opm.Add(op);
+            int _id = opm.Add(5,6);
+            OrderProduct op = new OrderProduct(_id, 5, 6);
 
-            Assert.Contains(op, opm.GetAllOrderProduct());
+            List<OrderProduct> AllOrderedProducts = opm.GetAllOrderProduct();
+
+            Assert.Equal(op.Id, AllOrderedProducts[AllOrderedProducts.Count-1].Id);
+            Assert.Equal(op.OrderId, AllOrderedProducts[AllOrderedProducts.Count-1].OrderId);
+            Assert.Equal(op.ProductId, AllOrderedProducts[AllOrderedProducts.Count-1].ProductId);
+
+            opm.DeleteOrderProduct(_id);
+
+            AllOrderedProducts = opm.GetAllOrderProduct();
+
+            Assert.NotEqual(op.Id, AllOrderedProducts[AllOrderedProducts.Count-1].Id);
         }
 
         //Test that the add function adds the object to the _orderProductList and the GetOrderProductByOrderId method returns it
@@ -36,9 +45,20 @@ namespace BangazonCLI.Tests
         [Fact]
         public void GetOrderProductById()
         {
-            opm.Add(op);
+            int _id = opm.Add(9,6);
+            OrderProduct op = new OrderProduct(_id, 9, 6);
 
-            Assert.Contains(op, opm.GetOrderProductByOrderId(1));
+            List<OrderProduct> ProductsByOrder = opm.GetOrderProductByOrderId(9);
+
+            Assert.Equal(op.Id, ProductsByOrder[ProductsByOrder.Count-1].Id);
+            Assert.Equal(op.OrderId, ProductsByOrder[ProductsByOrder.Count-1].OrderId);
+            Assert.Equal(op.ProductId, ProductsByOrder[ProductsByOrder.Count-1].ProductId);
+
+            opm.DeleteOrderProduct(_id);
+
+            ProductsByOrder = opm.GetOrderProductByOrderId(9);
+
+            Assert.NotEqual(op.Id, ProductsByOrder[ProductsByOrder.Count-1].Id);
         }
     }
 }
