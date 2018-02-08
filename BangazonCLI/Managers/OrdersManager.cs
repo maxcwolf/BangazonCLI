@@ -3,13 +3,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BangazonCLI.Data;
 using BangazonCLI.Models;
+using Microsoft.Data.Sqlite;
 
 namespace BangazonCLI.Managers
 {
     public class OrdersManager
     {
         public List<Orders> OrdersList = new List<Orders>();
+        private List<Payment> _PaymentOptions = new List<Payment>();
+        public DatabaseInterface _db;
 
         //This method adds a order to the database with the following arguments
         // NewOrder  = The default order object (see the constructor on the order class)
