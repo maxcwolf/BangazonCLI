@@ -1,5 +1,6 @@
 //Author: Ray Medrano   //Purpose: This Will Test the ProductManager
 using System;
+using System.Collections.Generic;
 using BangazonCLI.Managers;
 using BangazonCLI.Models;
 using Xunit;
@@ -14,14 +15,17 @@ namespace BangazonCLI.Tests
         {
             //create instances of both the productManager and a new product
             ProductManager pm = new ProductManager();
-            //create SQL Insert Statement to add to database
-            string NewProductString = "@$'INSERT INTO Product(Id, CustomerId, Title, Description, Price, Quantity, DateAdded)VALUES(null, Ray Medrano, Refrigerator, A 22 cubic foot refrigerator, 50000, 1, 2018-01-15)'";
 
             //Use the AddProduct method to add a new product
-            pm.AddProduct(NewProductString);
+            int _id = pm.AddProduct(1, "Refrigerator", "A Refrigerator", 100000, 1);
+
+            //Create a NewProduct For Comparison of the database entry
+            Product NewProduct = new Product(_id, 1, "Refrigerator" , "A Refrigerator",100000, 1, new DateTime(2018,02,09));
+
+            List<Product> allproducts = pm.GetCustomerProducts(_id);
 
             //Assert that the Product List contains the new product that was added
-            Assert.Contains(NewProductString, pm.GetCustomerProducts(1));
+            Assert.Equal(NewProduct.Id, allproducts[allproducts.Count-1].Id);
         }
 
         [Fact]
@@ -30,19 +34,13 @@ namespace BangazonCLI.Tests
             //create instance of ProductManager to use for test
            ProductManager pm = new ProductManager();
 
+
            //create a new product with a customer id of 1
-           Product NewProduct1 = new Product(1, 1, "NewProduct1", "This is a dummy Product1", 2000, 2);
+           Product NewProduct = new Product(10,1,"NewProduct2", "This is a dummy Product2",42000, 4, new DateTime(2018,2,09));
 
-           //add newproduct1 to product list
-           pm.AddProduct(NewProduct1);
 
-           //create a new product with a customer id of 2
-           Product NewProduct2 = new Product(2, 2, "NewProduct2", "This is a dummy Product2",42000, 4);
-
-           //add newProduct2 to product list
-           pm.AddProduct(NewProduct2);
-
-            Assert.DoesNotContain(NewProduct1, pm.GetNonActiveUserProduct(1));
+            //the NewProduct should not be on the GetNonActiveUserProduct list
+           Assert.DoesNotContain(NewProduct, pm.GetNonActiveUserProduct(1));
         }
 
     }
