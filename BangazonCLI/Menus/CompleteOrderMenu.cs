@@ -40,7 +40,7 @@ namespace BangazonCLI
                 // Display List of Customers payment types
                 foreach (Payment item in payment)
                 {
-                    Console.WriteLine($"{item.PaymentId}. {item.PaymentType}");
+                    Console.WriteLine($"{item.Id}. {item.PaymentType}");
                 }
                 Console.Write("> ");
                 int paymentType = int.Parse(Console.ReadLine());
