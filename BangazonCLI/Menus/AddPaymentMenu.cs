@@ -13,31 +13,32 @@ namespace BangazonCLI.Menus
     {
         public static void Show(int ActiveCustomerId)
         {
-            //Create new instance of the Payment Manager
-            PaymentManager paymentManager = new PaymentManager();
+            Console.Write("yo");
+            // //Create new instance of the Payment Manager
+            // PaymentManager paymentManager = new PaymentManager();
 
-            //Build the prompt
-            Console.Clear();
-            Console.WriteLine("Enter Your Payment Type (ex: VISA, Mastercard, etc.)");
-            Console.WriteLine("Enter 'Q' to Return To Main Menu");
-            var Result = Console.ReadLine();
+            // //Build the prompt
+            // Console.Clear();
+            // Console.WriteLine("Enter Your Payment Type (ex: VISA, Mastercard, etc.)");
+            // Console.WriteLine("Enter 'Q' to Return To Main Menu");
+            // var Result = Console.ReadLine();
             
 
-            //if user enters q return to main menu - else process adding product to order
-            if ( Result == "q" || Result == "Q" )
-            {
-                FeatureMenu.Show(ActiveCustomerId);
-            } 
-            else
-            {
-            Console.WriteLine("Enter the Account Number for this Payment Type:");
-            Console.WriteLine("*********************************");
-            Console.Write ("> ");
-            string AccountNumber = Console.ReadLine();
-            Payment newPayment = new Payment(1, Result, AccountNumber, ActiveCustomerId);
-            paymentManager.Add(newPayment);
-            FeatureMenu.Show(ActiveCustomerId);
-            }
+            // //if user enters q return to main menu - else process adding product to order
+            // if ( Result == "q" || Result == "Q" )
+            // {
+            //     FeatureMenu.Show(ActiveCustomerId);
+            // } 
+            // else
+            // {
+            // Console.WriteLine("Enter the Account Number for this Payment Type:");
+            // Console.WriteLine("*********************************");
+            // Console.Write ("> ");
+            // string AccountNumber = Console.ReadLine();
+            // Payment newPayment = new Payment(1, Result, AccountNumber, ActiveCustomerId);
+            // paymentManager.Add(newPayment);
+            // FeatureMenu.Show(ActiveCustomerId);
+            // }
         }
     }
 }
