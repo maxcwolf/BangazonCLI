@@ -33,7 +33,7 @@ namespace BangazonCLI.Menus
                 "1234567890"
             );
 
-            manager.Add(_customer);
+            // manager.Add(_customer);
 
 
             //uses the GetAllCustomers method on the CustomerManager to store the results in a list

@@ -79,7 +79,7 @@ namespace BangazonCLI.Menus
             CustomerManager manager = new CustomerManager();
 
             //Adds customer to the customer table
-            manager.Add(customer);
+            // manager.Add(customer);
 
             //After all customer information is entered, clear the menu and let them press any key to return
             //to the main menu

@@ -12,7 +12,7 @@ namespace BangazonCLI.Managers
         //creates a new list (table) to store all the customers
         private List<Customer> _customerTable = new List<Customer>();
 
-        public int Add(int id, string name, string street, string city, string state, string zip, string phone)
+        public int Add(string name, string street, string city, string state, string zip, string phone)
         {
             //create new database interface instance
             DatabaseInterface db = new DatabaseInterface();
