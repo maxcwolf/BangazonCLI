@@ -18,7 +18,7 @@ namespace BangazonCLI.Managers
         {
         return db.Insert($"INSERT INTO Payment VALUES(null, {user}, '{name}', '{num}')");
         }
-
+        //Gets customer payments from database. Accepts id of active customer to specify payments to be returned.
         public List<Payment> GetCustomerPayments(int CustomerId)
         {
             List<Payment> results = new List<Payment>();
