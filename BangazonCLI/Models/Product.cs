@@ -10,32 +10,24 @@ namespace BangazonCLI.Models
         public string Description {get; set;} // Product Description
         public int Price {get; set;} // Product price stored as integer i.e. $19.95 = 1995
         public int Quantity {get; set;}//Product Quantity
-        public DateTime DateAdded {get; set;} // Date product was added to system (calculated at creation)
+        public String DateAdded {get; set;} // Date product was added to system this is calculated by the database and returned as a string
 
-        //This is the default constructor for the Product Class, using the arguments listed above
-        public Product()
-        {
-            this.Id = 1;
-            this.CustomerId = 1;
-            this.Title = "Refrigerator";
-            this.Description = "23 Cubic Foot French Door Refrigerator";
-            this.Price = 300000;
-            this.Quantity = 1;
-            this.DateAdded = DateTime.Now;
-        }
 
-        //This is an overloaded Product constructor that takes 6 arguments as defined above
+
+        //This is the Default Product constructor that takes 6 arguments as defined above
         // Id, CustomerId, Title, Description, Price, Quantity
 
-        public Product(int id, int customerId, string title, string description, int price, int quantity)
+        public Product(int id, int customerId, string title, string description, int price, int quantity, string dateAdded)
         {
             this.Id = id;
             this.CustomerId = customerId;
-            this.Title = title;
+            this.Title = title; // product title
             this.Description = description;
             this.Price = price;
             this.Quantity = quantity;
-            this.DateAdded = DateTime.Now;
+            this.DateAdded = dateAdded;
+
+
         }
     }
 }
