@@ -21,7 +21,16 @@ namespace BangazonCLI.Managers
             //return active order, if there isn't one moves to the catch: create an Order
             try
             {
-                return OrdersList.Where(o => o.CustomerId == ActiveCustomerId && o.PaymentId == null).Single().Id;
+                int oId = 0;
+                _db.Query($"SELECT Id FROM Orders WHERE CustomerId = {ActiveCustomerId} AND PaymentId IS NULL", (SqliteDataReader reader) =>
+                {
+                    while (reader.Read())
+                    {
+                        oId = reader.GetInt32(0);
+                    }
+                }
+           );
+                return oId;
             }
             catch
             {
