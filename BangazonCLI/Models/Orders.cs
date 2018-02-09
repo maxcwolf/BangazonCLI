@@ -2,9 +2,10 @@
 //Purpose: Orders Table Model
 using System;
 
+
 namespace BangazonCLI.Models
 {
-        public class Orders
+    public class Orders
     {
         public int Id { get; set; }
 
@@ -12,19 +13,16 @@ namespace BangazonCLI.Models
 
         public DateTime? Closed { get; set; }
 
-        //Defining these foreign key explicitly allows the one-to-many relationship in the customer and Payment models.
-
         //Foreign Key
         public int CustomerId { get; set; }
 
         //Foreign Key
         public int? PaymentId { get; set; }
 
-          //This is the default constructor for the Orders Class used for testing, using the arguments listed above
-        public Orders()
+        //This is the default constructor for the Orders Class used for testing, using the arguments listed above
+        public Orders(int CustomerId)
         {
-            this.Id = 1;
-            this.CustomerId = 1;
+            this.CustomerId = CustomerId;
             this.PaymentId = null;
             this.Created = DateTime.Now;
             this.Closed = null;

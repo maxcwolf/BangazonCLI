@@ -15,7 +15,7 @@ namespace BangazonCLI.Menus
         {
             //These value need to be refactored to take in values from the active user and the active users current order
             OrdersManager orderManager = new OrdersManager();
-            
+
             // int ActiveOrderId = orderManager.GetCustomerOrders(ActiveCustomerId).Id;
             int ActiveOrderId = 1;
 
@@ -24,9 +24,9 @@ namespace BangazonCLI.Menus
 
             //Class that interacts with the Product table
             ProductManager productManager = new ProductManager();
-            
+
             //Returns a list of all products that are not owned by the active user
-            List<Product> productList =  productManager.GetNonActiveUserProduct(ActiveCustomerId);
+            List<Product> productList = productManager.GetNonActiveUserProduct(ActiveCustomerId);
 
             //Build the prompt
             Console.Clear();
@@ -35,24 +35,24 @@ namespace BangazonCLI.Menus
             Console.WriteLine();
 
             //Add a line for each product where the number reflects the index in the producList
-            productList.ForEach(p => 
+            productList.ForEach(p =>
             {
-                Console.WriteLine($"{productList.IndexOf(p)+1}. {p.Title}");
+                Console.WriteLine($"{productList.IndexOf(p) + 1}. {p.Title}");
             });
-            Console.Write ("> ");
-            
+            Console.Write("> ");
+
             Console.WriteLine("Enter 'Q' to Return To Main Menu");
             var Result = Console.ReadLine();
 
             //if user enters q return to main menu - else process adding product to order
-            if ( Result == "q" || Result == "Q" )
+            if (Result == "q" || Result == "Q")
             {
                 FeatureMenu.Show(ActiveCustomerId);
-            } 
+            }
             else
             {
                 //Pull out the selected item from the user input
-                Product productSelected =  productList[int.Parse(Console.ReadLine())-1];
+                Product productSelected = productList[int.Parse(Console.ReadLine()) - 1];
 
                 //TODO : Write validation for the qunatity to purchase
 
@@ -60,9 +60,9 @@ namespace BangazonCLI.Menus
                 Console.WriteLine();
                 Console.WriteLine($"How Many {productSelected.Title} Would You Like To Add To The Order");
                 Console.WriteLine($"There are {productSelected.Quantity} Available");
-                Console.Write ("> ");
-                
-                int Quantity  = int.Parse(Console.ReadLine());
+                Console.Write("> ");
+
+                int Quantity = int.Parse(Console.ReadLine());
 
                 //Add Quantity number of new orderProduct to the OrderProduct table by invoking 
                 for (int i = 0; i < Quantity; i++)

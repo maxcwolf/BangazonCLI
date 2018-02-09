@@ -15,7 +15,7 @@ namespace BangazonCLI.Menus
         {
             /*Create new instance of the Payment Manager with production database path passed in
             to create connection string*/
-            PaymentManager paymentManager = new PaymentManager("BANGAZON_CLI");
+            PaymentManager paymentManager = new PaymentManager();
 
             //Build the prompt
             Console.Clear();
