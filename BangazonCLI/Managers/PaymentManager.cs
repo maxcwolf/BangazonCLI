@@ -4,30 +4,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using BangazonCLI.Models;
+using BangazonCLI.Data;
+using Microsoft.Data.Sqlite;
 
 namespace BangazonCLI.Managers
 {
     public class PaymentManager
     {
-        //List to hold all of the Payments
-        private List<Payment> _TestPaymentList = new List<Payment>();
+        private DatabaseInterface db;
 
         //Adds a Payment to the list
-        public void Add(Payment Payment)
+        public int Add(int user, string name, string num)
         {
-            _TestPaymentList.Add(Payment);
+        return db.Insert($"INSERT INTO Payment VALUES(null, {user}, '{name}', '{num}')");
         }
-
-        // return all of the Payments
-        public List<Payment> GetAllPayments()
-        {
-            return _TestPaymentList;
-        }
-
-        //Given a customer id int, this method will return all payments associated with that customer in a list
+        //Gets customer payments from database. Accepts id of active customer to specify payments to be returned.
         public List<Payment> GetCustomerPayments(int CustomerId)
         {
-            return _TestPaymentList.Where(p => p.CustomerId == CustomerId).ToList();
+            List<Payment> results = new List<Payment>();
+            db.Query(
+                "SELECT * FROM Payment WHERE Payment.CustomerId == 1;",
+                (SqliteDataReader reader) => {
+                        //Callback function to iterate through the returned object
+                        while (reader.Read ())
+                        {
+                            results.Add(new Payment( reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3)));
+                        }
+                    }
+            );
+            return results;
+        }
+
+        public PaymentManager(string connection_string)
+        {
+            //instantiate the databaseInterface with the connection_string
+            db = new DatabaseInterface(connection_string);
         }
 
     }
