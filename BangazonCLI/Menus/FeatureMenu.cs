@@ -45,7 +45,7 @@ namespace BangazonCLI.Menus
             //Else run switch statement for options listed above, if any other input is detected, redisplay the menu
             else
             {
-                switch(Result)
+                switch (Result)
                 {
                     case "1":
                         AddPaymentMenu.Show(ActiveUserId);
@@ -57,6 +57,7 @@ namespace BangazonCLI.Menus
                         AddOrderProductMenu.Show(ActiveUserId);
                         break;
                     case "4":
+                        CompleteOrderMenu.Show(ActiveUserId);
                         break;
                     case "5":
                         break;

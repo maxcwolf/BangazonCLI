@@ -3,41 +3,62 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BangazonCLI.Data;
 using BangazonCLI.Models;
+using Microsoft.Data.Sqlite;
 
 namespace BangazonCLI.Managers
 {
     public class OrdersManager
     {
         public List<Orders> OrdersList = new List<Orders>();
+        private List<Payment> _PaymentOptions = new List<Payment>();
+        private DatabaseInterface _db;
 
-        //This method adds a order to the database with the following arguments
-        // NewOrder  = The default order object (see the constructor on the order class)
-        public void AddOrder(Orders NewOrder)
+        //This method returns the Active Order or creates an Order if there isn't an active Order.
+        public int GetActiveOrder(int ActiveCustomerId)
         {
-            //add order to order list
-            OrdersList.Add(NewOrder);
+            //return active order, if there isn't one moves to the catch: create an Order
+            try
+            {
+                return OrdersList.Where(o => o.CustomerId == ActiveCustomerId && o.PaymentId == null).Single().Id;
+            }
+            catch
+            {
+                DateTime now = DateTime.Now;
+                int id = _db.Insert($"INSERT INTO Orders VALUES (null, {ActiveCustomerId}, null, '{now}', null )");
+                Console.WriteLine("Order Created.");
+                return id;
+            }
+        }
+        //Checks to see if Customer has Products in their Active Order
+        public int CheckCart(int OrderId)
+        {
+            OrderProductManager opm = new OrderProductManager();
+            if (opm.GetOrderProductByOrderId(OrderId).Count == 0)
+            {
+                return 0;
+            }
+            return 1;
         }
 
-        //This method returns a list of orders from the database for the active customer with the follwing argument
-        // id = the customer id
-        public Orders GetCustomerOrders(int id)
-        {
-            //return a list of orders where CustomerId = id
-            return OrdersList.Where(o => o.CustomerId == id && o.PaymentId == null).Single();
-        }
-
-        //This method gets an Order that has not been completed; assigns a paymentId, and a Close date.
-        public void CompleteOrder(int id, int paymentId)
-        {
-            Orders ThisOrder = OrdersList.Where(o => o.CustomerId == id && o.PaymentId == null).Single();
-            ThisOrder.PaymentId = paymentId;
-            ThisOrder.Closed = DateTime.Now;
-        }
         //This method  returns a single order by Order Id.
         public Orders GetOrderByOrderId(int id)
         {
             return OrdersList.Where(o => o.Id == id).Single();
+        }
+        //This method gets Active Order; assigns a paymentId, and a Close date.
+        public bool AddPaymentTypeToOrder(int payId, int orderId)
+        {
+            DateTime now = DateTime.Now;
+            _db.Insert($"UPDATE Orders SET PaymentId = {payId}, Closed = '{now}' WHERE Orders.Id = {orderId}");
+            return true;
+        }
+        //Connecting to Environmental Variable
+        public OrdersManager(string connection_string = "BANGAZON_CLI")
+        {
+            //instantiate the databaseInterface with the connection_string
+            _db = new DatabaseInterface(connection_string);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace BangazonCLI.Managers
             return results;
         }
 
-        public PaymentManager(string connection_string)
+        public PaymentManager(string connection_string = "BANGAZON_CLI")
         {
             //instantiate the databaseInterface with the connection_string
             db = new DatabaseInterface(connection_string);

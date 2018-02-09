@@ -9,43 +9,34 @@ namespace BangazonCLI.Tests
 {
     public class OrdersShould
     {
+        //Instantiate OrdersManager
+        private OrdersManager om { get; set; }
 
-        [Fact]
-        public void CreateOrder()
+        //Connect to the Database
+        public OrdersShould()
         {
-            //create instances of both the OrdersManager and a new order
-            OrdersManager om = new OrdersManager();
+            this.om = new OrdersManager("BANGAZON_CLI_TEST");
+        }
+        //This tests that there is an Active Order and if not it creates one.
+        [Fact]
+        public void GetTheOrder()
+        {
+            //Getting Active Order by Customer Id
+            int active = om.GetActiveOrder(1);
 
-            Orders NewOrder = new Orders();
-
-            //Use the AddOrder method to add a new order
-            om.AddOrder(NewOrder);
-
-            //Assert that the Orders List contains the new order that was added
-            Assert.Equal(NewOrder, om.GetCustomerOrders(1));
+            //Assert that the an Order Id is returned and is an int
+            Assert.IsType<int>(active);
         }
 
+        //Test to add a payment to the Order and a close date to complete the order.
         [Fact]
         public void CompleteOrder()
         {
-            //create instances of both the OrdersManager and a new order
-            OrdersManager om = new OrdersManager();
 
-            Orders NewOrder = new Orders();
+            var paid = om.AddPaymentTypeToOrder(1, 1);
 
-            //Use the AddOrder method to add a new order
-            om.AddOrder(NewOrder);
-
-            //pick the order we want to complete
-            Orders OrderToComplete = om.GetCustomerOrders(1);
-
-            //Assert that the order we want to complete has the id of 1
-            om.CompleteOrder(OrderToComplete.Id, 1);
-
-             //Assert that the paymentId of the Order we wan to complete is 1
-            Assert.Equal(1, om.GetOrderByOrderId(1).PaymentId);
-            //Assert that there is now a date in the Closed date field.
-            Assert.NotNull(om.GetOrderByOrderId(1).Closed);
+            //Assert that the payment was added.
+            Assert.True(paid);
         }
 
     }
