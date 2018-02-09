@@ -15,20 +15,32 @@ namespace BangazonCLI.Managers
         private List<Payment> _PaymentOptions = new List<Payment>();
         public DatabaseInterface _db;
 
-        //This method adds a order to the database with the following arguments
-        // NewOrder  = The default order object (see the constructor on the order class)
-        public void AddOrder(Orders NewOrder)
+        //This method returns the Active Order or creates an Order if there isn't an active Order.
+        // id = the customer id
+        public int GetActiveOrder(int ActiveCustomerId)
         {
-            //add order to order list
-            OrdersList.Add(NewOrder);
+            //return active order, if there isn't one create an Order
+            try
+            {
+                return OrdersList.Where(o => o.CustomerId == ActiveCustomerId && o.PaymentId == null).Single().Id;
+            }
+            catch
+            {
+                DateTime now = DateTime.Now;
+                int id = _db.Insert($"INSERT INTO [Orders] VALUES (null, {ActiveCustomerId}, null, {now} )");
+                Console.WriteLine("Order Created.");
+                return id;
+            }
         }
 
-        //This method returns a list of orders from the database for the active customer with the follwing argument
-        // id = the customer id
-        public Orders GetCustomerOrders(int id)
+        public int CheckCart(int OrderId)
         {
-            //return a list of orders where CustomerId = id
-            return OrdersList.Where(o => o.CustomerId == id && o.PaymentId == null).Single();
+            OrderProductManager opm = new OrderProductManager();
+            if (opm.GetOrderProductByOrderId(OrderId).Count == 0)
+            {
+                return 0;
+            }
+            return 1;
         }
 
         //This method gets an Order that has not been completed; assigns a paymentId, and a Close date.
@@ -42,6 +54,12 @@ namespace BangazonCLI.Managers
         public Orders GetOrderByOrderId(int id)
         {
             return OrdersList.Where(o => o.Id == id).Single();
+        }
+        //  Add a payment to the null field "payment" in an order, return true once complete
+        public bool AddPayment(int payId)
+        {
+            _db.Insert($"UPDATE [Orders] SET paymentId = {payId} WHERE [Orders].Id = {Id}");
+            return true;
         }
     }
 }

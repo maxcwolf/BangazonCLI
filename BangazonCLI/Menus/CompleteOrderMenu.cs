@@ -1,4 +1,5 @@
 //Author: Chase Steely
+//Purpose: Menu for user to complete order.
 using System;
 using BangazonCLI.Models;
 using BangazonCLI.Managers;
@@ -9,13 +10,19 @@ namespace BangazonCLI
 {
     public class CompleteOrderMenu
     {
-        //This method will prompt the user to create a new product for the active user and takes the following argument
-        // CustomerID - The id number for the active customer
+        //This method will prompt the user tif they wat to complete their order, show the total of order, and give them payment options.
+        // ActiveCustomerId - The id number for the active customer
         public static void Show(int ActiveCustomerId)
         {
             Console.Clear();
             Console.WriteLine("COMPLETE BANGAZON ORDER");
             Console.WriteLine("********************************");
+            OrdersManager om = new OrdersManager();
+            om.GetActiveOrder(ActiveCustomerId);
+            if (om.CheckCart(ActiveCustomerId) == 0)
+            {
+
+            }
             Console.WriteLine("Your order total is insertTotal. Ready to purchase");
             Console.Write("> ");
             string result = Console.ReadLine();
@@ -24,14 +31,16 @@ namespace BangazonCLI
             {
                 PaymentManager pm = new PaymentManager();
                 List<Payment> payment = pm.GetCustomerPayments(ActiveCustomerId);
-                int count = 1;
                 Console.Clear();
                 Console.WriteLine("Choose a payment type");
                 // Display List of Customers payment types
                 foreach (Payment item in payment)
                 {
-                    Console.WriteLine($"{count++}. {item.PaymentType}");
+                    Console.WriteLine($"{item.PaymentId}. {item.PaymentType}");
                 }
+                Console.Write("> ");
+                int paymentType = int.Parse(Console.ReadLine());
+                om.AddPayment(paymentType);
             }
             else
             {

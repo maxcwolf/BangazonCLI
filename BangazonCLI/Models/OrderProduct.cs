@@ -17,9 +17,9 @@ namespace BangazonCLI.Models
             this.OrderId = 1;
             this.ProductId = 1;
         }
-        public OrderProduct(int _orderId, int _productId)
+        public OrderProduct(int _id, int _orderId, int _productId)
         {
-            this.Id = 1;
+            this.Id = _id;
             this.OrderId = _orderId;
             this.ProductId = _productId;
         }

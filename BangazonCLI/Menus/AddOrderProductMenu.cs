@@ -67,7 +67,7 @@ namespace BangazonCLI.Menus
                 //Add Quantity number of new orderProduct to the OrderProduct table by invoking 
                 for (int i = 0; i < Quantity; i++)
                 {
-                    orderProductManager.Add(new OrderProduct(ActiveOrderId, productSelected.Id));
+                    orderProductManager.Add(ActiveOrderId, productSelected.Id);
                 }
 
                 AddOrderProductMenu.Show(ActiveCustomerId);
