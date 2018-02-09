@@ -22,20 +22,6 @@ namespace BangazonCLI.Menus
             //create new instance of the customer manager
             CustomerManager manager = new CustomerManager();
 
-            //ADDING DUMMY DATA
-            Customer _customer = new Customer(
-                1,
-                "Rang Dipkin",
-                "123 Derp Way",
-                "Derpville",
-                "TN",
-                "12345",
-                "1234567890"
-            );
-
-            // manager.Add(_customer);
-
-
             //uses the GetAllCustomers method on the CustomerManager to store the results in a list
             List<Customer> allCustomers = manager.GetAllCustomers();
 
@@ -53,7 +39,7 @@ namespace BangazonCLI.Menus
             int custId = allCustomers[choice - 1].Id;
 
 
-            // FeatureMenu.Show(custId);
+            FeatureMenu.Show(custId);
 
         }
     }

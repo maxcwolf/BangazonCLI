@@ -64,22 +64,11 @@ namespace BangazonCLI.Menus
 			// Read user's phone input and store as phone variable
             string phone = Console.ReadLine();
 
-            //creates a new customer from the entered data
-            Customer customer = new Customer(
-                1,
-                name,
-                street,
-                city,
-                state,
-                zip,
-                phone
-            );
-
             //create new instance of the customer manager
             CustomerManager manager = new CustomerManager();
 
             //Adds customer to the customer table
-            // manager.Add(customer);
+            manager.Add(name, street, city, state, zip, phone);
 
             //After all customer information is entered, clear the menu and let them press any key to return
             //to the main menu
