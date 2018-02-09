@@ -13,32 +13,32 @@ namespace BangazonCLI.Menus
     {
         public static void Show(int ActiveCustomerId)
         {
-            Console.Write("yo");
-            // //Create new instance of the Payment Manager
-            // PaymentManager paymentManager = new PaymentManager();
+            /*Create new instance of the Payment Manager with production database path passed in
+            to create connection string*/
+            PaymentManager paymentManager = new PaymentManager("BANGAZON_CLI");
 
-            // //Build the prompt
-            // Console.Clear();
-            // Console.WriteLine("Enter Your Payment Type (ex: VISA, Mastercard, etc.)");
-            // Console.WriteLine("Enter 'Q' to Return To Main Menu");
-            // var Result = Console.ReadLine();
-            
+            //Build the prompt
+            Console.Clear();
+            Console.WriteLine("Follow Prompts To Add A Payment");
+            Console.WriteLine("Enter 'Q' to Return To Main Menu");
+            Console.WriteLine("*********************************");
+            Console.WriteLine("Enter Your Payment Type (ex: VISA, Mastercard, etc.)");
+            var Result = Console.ReadLine();
 
-            // //if user enters q return to main menu - else process adding product to order
-            // if ( Result == "q" || Result == "Q" )
-            // {
-            //     FeatureMenu.Show(ActiveCustomerId);
-            // } 
-            // else
-            // {
-            // Console.WriteLine("Enter the Account Number for this Payment Type:");
-            // Console.WriteLine("*********************************");
-            // Console.Write ("> ");
-            // string AccountNumber = Console.ReadLine();
-            // Payment newPayment = new Payment(1, Result, AccountNumber, ActiveCustomerId);
-            // paymentManager.Add(newPayment);
-            // FeatureMenu.Show(ActiveCustomerId);
-            // }
+            //if user enters q return to main menu - else process adding payment to database
+            if (Result.ToLower() == "q")
+            {
+                FeatureMenu.Show(ActiveCustomerId);
+            }
+            else
+            {
+                Console.WriteLine("*********************************");
+                Console.WriteLine("Enter the Account Number for this Payment Type:");
+                Console.Write("> ");
+                string AccountNumber = Console.ReadLine();
+                paymentManager.Add(ActiveCustomerId, Result, AccountNumber);
+                FeatureMenu.Show(ActiveCustomerId);
+            }
         }
     }
 }

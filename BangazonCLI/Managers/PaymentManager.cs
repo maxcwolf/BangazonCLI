@@ -19,13 +19,6 @@ namespace BangazonCLI.Managers
         return db.Insert($"INSERT INTO Payment VALUES(null, {user}, '{name}', '{num}')");
         }
 
-        // // return all of the Payments
-        // public List<Payment> GetAllPayments()
-        // {
-        //     return _TestPaymentList;
-        // }
-
-        //Given a customer id int, this method will return all payments associated with that customer in a list
         public List<Payment> GetCustomerPayments(int CustomerId)
         {
             List<Payment> results = new List<Payment>();
