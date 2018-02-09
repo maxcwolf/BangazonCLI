@@ -16,8 +16,7 @@ namespace BangazonCLI.Menus
             //These value need to be refactored to take in values from the active user and the active users current order
             OrdersManager orderManager = new OrdersManager();
 
-            // int ActiveOrderId = orderManager.GetCustomerOrders(ActiveCustomerId).Id;
-            int ActiveOrderId = 1;
+            int ActiveOrderId = orderManager.GetActiveOrder(ActiveCustomerId);
 
             //Class that interacts with the OrderProduct table
             OrderProductManager orderProductManager = new OrderProductManager();
@@ -39,9 +38,10 @@ namespace BangazonCLI.Menus
             {
                 Console.WriteLine($"{productList.IndexOf(p) + 1}. {p.Title}");
             });
+            Console.WriteLine("Enter 'Q' to Return To Main Menu");
+            Console.WriteLine();
             Console.Write("> ");
 
-            Console.WriteLine("Enter 'Q' to Return To Main Menu");
             var Result = Console.ReadLine();
 
             //if user enters q return to main menu - else process adding product to order
@@ -52,14 +52,14 @@ namespace BangazonCLI.Menus
             else
             {
                 //Pull out the selected item from the user input
-                Product productSelected = productList[int.Parse(Console.ReadLine()) - 1];
-
+                Product productSelected = productList[int.Parse(Result) - 1];
+                int Available = orderProductManager.FindProductAvailability(productSelected.Id);
                 //TODO : Write validation for the qunatity to purchase
 
                 //Prompt the user to input the number of the selected item they want to add to the order
                 Console.WriteLine();
                 Console.WriteLine($"How Many {productSelected.Title} Would You Like To Add To The Order");
-                Console.WriteLine($"There are {productSelected.Quantity} Available");
+                Console.WriteLine($"There are {Available} Available");
                 Console.Write("> ");
 
                 int Quantity = int.Parse(Console.ReadLine());
