@@ -11,25 +11,24 @@ namespace BangazonCLI.Tests
     public class CustomerShould
     {
         //creates a variable storing a test customer
-        private Customer _customer;
+        private Customer _customer { get; set; }
+        private CustomerManager _manager { get; set; }
 
-        //uses the Customer class to add a new customer for testing
+
+        // //uses the Customer class to add a new customer for testing
         public CustomerShould()
         {
-
-
+            this._manager = new CustomerManager("BANGAZON_CLI_TEST");
         }
 
         //Test for getting all customers
         [Fact]
         public void GetAllCustomers()
         {
-            //a new instance of the customer manager/database interface to be used here
-            CustomerManager manager = new CustomerManager();
             //add the customer to the database and store the returned Id as a variable to use in the test customer object created below
-            int _id = manager.Add("name", "street", "city", "state", "zip", "phone");
+            int _id = _manager.Add("name", "street", "city", "state", "zip", "phone");
             //uses the GetAllCustomers method on the CustomerManager to store the results in a list
-            List<Customer> allCustomers = manager.GetAllCustomers();
+            List<Customer> AllCustomers = _manager.GetAllCustomers();
 
             //create test customer
             _customer = new Customer(
@@ -42,13 +41,13 @@ namespace BangazonCLI.Tests
                 "phone"
             );
             //Asserts that the list created in the line ablove contains the customer added to the customer list
-            Assert.Equal(_customer.Id, allCustomers[allCustomers.Count - 1].Id);
-            Assert.Equal(_customer.Name, allCustomers[allCustomers.Count - 1].Name);
-            Assert.Equal(_customer.Street, allCustomers[allCustomers.Count - 1].Street);
-            Assert.Equal(_customer.City, allCustomers[allCustomers.Count - 1].City);
-            Assert.Equal(_customer.State, allCustomers[allCustomers.Count - 1].State);
-            Assert.Equal(_customer.Zip, allCustomers[allCustomers.Count - 1].Zip);
-            Assert.Equal(_customer.Phone, allCustomers[allCustomers.Count - 1].Phone);
+            Assert.Equal(_customer.Id, AllCustomers[AllCustomers.Count - 1].Id);
+            Assert.Equal(_customer.Name, AllCustomers[AllCustomers.Count - 1].Name);
+            Assert.Equal(_customer.Street, AllCustomers[AllCustomers.Count - 1].Street);
+            Assert.Equal(_customer.City, AllCustomers[AllCustomers.Count - 1].City);
+            Assert.Equal(_customer.State, AllCustomers[AllCustomers.Count - 1].State);
+            Assert.Equal(_customer.Zip, AllCustomers[AllCustomers.Count - 1].Zip);
+            Assert.Equal(_customer.Phone, AllCustomers[AllCustomers.Count - 1].Phone);
         }
 
         // //Tests getting a single customer
