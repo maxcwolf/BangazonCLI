@@ -124,61 +124,61 @@ INSERT INTO Payment
 VALUES (null, 7, 'DISCOVER', '679683436245689');
 
 INSERT INTO Product
-VALUES (null, 1, 'Kitten Hat', 'Adorable hat for your kitten', 1995, 5, 2018-01-07);
+VALUES (null, 1, 'Kitten Hat', 'Adorable hat for your kitten', 1995, 5, "2018-01-07");
 
 INSERT INTO Product
-VALUES (null, 1, 'Poodle Hat', 'Adorable hat for your poodle ', 1995,3, 2018-01-20);
+VALUES (null, 1, 'Poodle Hat', 'Adorable hat for your poodle ', 1995,3, "2018-01-20");
 
 INSERT INTO Product
-VALUES (null, 2, 'Blond Merkin', 'Blond Short Hair Merkin', 9995, 3, 2017-12-20);
+VALUES (null, 2, 'Blond Merkin', 'Blond Short Hair Merkin', 9995, 3, "2017-12-20");
 
 INSERT INTO Product
-VALUES (null, 2, 'Christmas Merkin', 'Red and Green Festive Long Hair Merkin', 20000, 3, 2017-11-10);
+VALUES (null, 2, 'Christmas Merkin', 'Red and Green Festive Long Hair Merkin', 20000, 3, "2017-11-10");
 
 INSERT INTO Product
-VALUES (null, 2, 'Easter Merkin', 'Celebrate the reason for the season with this pink and yellow striped short hair merkin', 5995, 3, 2018-01-31);
+VALUES (null, 2, 'Easter Merkin', 'Celebrate the reason for the season with this pink and yellow striped short hair merkin', 5995, 3, "2018-01-31");
 
 INSERT INTO Product
-VALUES (null, 3, 'Plumbus', 'Standard Size Plumbus, use with caution', 1000, 10, 2018-02-01);
+VALUES (null, 3, 'Plumbus', 'Standard Size Plumbus, use with caution', 1000, 10, "2018-02-01");
 
 INSERT INTO Product
-VALUES (null, 3, 'Meseeks Box', 'Look at me! Im Mr Meseeks!', 90000, 2, 2018-02-07);
+VALUES (null, 3, 'Meseeks Box', 'Look at me! Im Mr Meseeks!', 90000, 2, "2018-02-07");
 
 INSERT INTO Orders
-VALUES(null, 1, 1, 2018-02-01, 2018-02-01);
+VALUES(null, 1, 1, "2018-02-01", "2018-02-01");
 
 INSERT INTO Orders
-VALUES(null, 2, 2, 2018-02-01, 2018-02-01);
+VALUES(null, 2, 2, "2018-02-01", "2018-02-01");
 
 INSERT INTO Orders
-VALUES(null, 3, 7, 2018-02-01, 2018-02-01);
+VALUES(null, 3, 7, "2018-02-01", "2018-02-01");
 
 INSERT INTO Orders
-VALUES(null, 4, 8, 2018-02-01, 2018-02-01);
+VALUES(null, 4, 8, "2018-02-01", "2018-02-01");
 
 INSERT INTO Orders
-VALUES(null, 5, 10, 2018-02-01, 2018-02-01);
+VALUES(null, 5, 10, "2018-02-01", "2018-02-01");
 
 INSERT INTO Orders
-VALUES(null, 6, 12, 2018-02-01, 2018-02-01);
+VALUES(null, 6, 12, "2018-02-01", "2018-02-01");
 
 INSERT INTO Orders
-VALUES(null, 1, null, 2018-02-01, null);
+VALUES(null, 1, null, "2018-02-01", null);
 
 INSERT INTO Orders
-VALUES(null, 2, null, 2018-02-01, null);
+VALUES(null, 2, null, "2018-02-01", null);
 
 INSERT INTO Orders
-VALUES(null, 3, null, 2018-02-01, null);
+VALUES(null, 3, null, "2018-02-01", null);
 
 INSERT INTO Orders
-VALUES(null, 4, null, 2018-02-01, null);
+VALUES(null, 4, null, "2018-02-01", null);
 
 INSERT INTO Orders
-VALUES(null, 5, null, 2018-02-01, null);
+VALUES(null, 5, null, "2018-02-01", null);
 
 INSERT INTO Orders
-VALUES(null, 6, null, 2018-02-01, null);
+VALUES(null, 6, null, "2018-02-01", null);
 
 INSERT INTO OrderProduct
 VALUES(null, 1, 1);
@@ -296,3 +296,35 @@ VALUES(null, 10, 5);
 
 INSERT INTO OrderProduct
 VALUES(null, 11, 6);
+
+SQL QUERY FOR STALE PRODUCTS
+
+	SELECT DISTINCT * FROM
+	(SELECT p.* from Product p
+	Where p.Id NOT IN (SELECT DISTINCT ProductId FROM OrderProduct) 
+		AND julianday('now') - julianday(p.DateAdded) > 180
+	UNION
+	SELECT p.* FROM
+		(SELECT  DISTINCT ProductId FROM OrderProduct op
+		JOIN Orders o ON op.OrdersId = o.Id
+		WHERE o.Closed is null and (julianday('now') - julianday(o.created)) > 90)
+	JOIN Product p
+	ON ProductId = p.Id
+	WHERE ProductId NOT IN 
+		(SELECT DISTINCT ProductId FROM OrderProduct op
+		JOIN Orders o ON op.OrdersId = o.Id
+		WHERE o.Closed is not null)
+	UNION
+	SELECT DISTINCT p.* FROM OrderProduct op
+	JOIN Orders o ON op.OrdersId = o.Id
+	JOIN Product p  ON op.ProductID = p.Id
+	JOIN 
+		(SELECT ProductId, COUNT(*) as Total FROM OrderProduct
+		WHERE OrdersId in
+		(SELECT Id FROM Orders
+		WHERE Closed is not null)
+		GROUP BY ProductId) total_sold
+	ON p.Id = total_sold.ProductId
+	WHERE o.Closed is not null
+	AND julianday('now') - julianday(p.DateAdded) > 180
+	AND p.Quantity > total_sold.Total)
