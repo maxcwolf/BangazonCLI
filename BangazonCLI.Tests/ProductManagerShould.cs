@@ -66,5 +66,14 @@ namespace BangazonCLI.Tests
            Assert.DoesNotContain(NewProduct, pm.GetNonActiveUserProduct(1));
         }
 
+        [Fact]
+        public void CheckForProductsOnOrderProductsTable()
+        {
+            //create a variable to hold the expected answer
+            int AmountInOrder = 0;
+            //create a variable to hold the productId
+            int ProductId = 9;
+            Assert.Equals(AmountInOrder,pm.CheckForProductsOnOrder(ProductId));
+        }
     }
 }
