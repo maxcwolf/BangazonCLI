@@ -46,7 +46,7 @@ namespace BangazonCLI
       int Quantity = System.Convert.ToInt32(inputQuantity);
 
     //Create a new instance of the product manager
-    ProductManager pm = new ProductManager();
+    ProductManager pm = new ProductManager("BANGAZON_CLI_TEST");
 
     //Create New Product using values collected above
     pm.AddProduct(ActiveCustomerId, Title, Description, Price, Quantity);
