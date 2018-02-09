@@ -60,9 +60,32 @@ namespace BangazonCLI.Managers
         }
 
         //Method to get a single customer (returns a single customer from the id passed in)
-        // public Customer GetSingleCustomer(int id)
-        // {
-        //     // return AllCustomers.Where(j => j.Id == id).Single();
-        // }
+        public List<Customer> GetSingleCustomer(int id)
+        {
+            List<Customer> SingleCustomer = new List<Customer>();
+
+            _db.Query(
+                $"SELECT * FROM Customer WHERE Customer.Id = {id}",
+                (SqliteDataReader reader) => {
+                    //Callback function to iterate through the returned object
+                    //Create a new instance of the OrderProduct class by scraping the id from column 0
+                    //Add the new Customer to the list
+                    while (reader.Read ())
+                    {
+                        SingleCustomer.Add(new Customer(
+                            reader.GetInt32(0),
+                            reader.GetString(1),
+                            reader.GetString(2),
+                            reader.GetString(3),
+                            reader.GetString(4),
+                            reader.GetString(5),
+                            reader.GetString(6)
+                        ));
+                    }
+                }
+            );
+            //return the list of all customers
+            return SingleCustomer;
+        }
     }
 }
