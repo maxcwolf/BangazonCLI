@@ -1,6 +1,6 @@
 # BangazonCLI
 
-Payment
+Payment<br>
 To add a payment:
 1. Select a customer (option 2).
 2. Select the option to add a payment (option 1).
