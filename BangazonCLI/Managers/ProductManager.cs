@@ -66,9 +66,16 @@ namespace BangazonCLI.Managers
                    }
                });
                return productlist;
+        }
 
-
-
+        //Constructor method that takes in a connection_string to create the database interface.
+        //This has a default value of the Environmental variable of the production database
+        //When the test database is desired you can pass in the string "BANGAZON_CLI_TEST" in as an argument
+        //If no string is passed in the default value will be used
+        public ProductManager(string connection_string = "BANGAZON_CLI")
+        {
+            //instantiate the databaseInterface with the connection_string
+            db = new DatabaseInterface(connection_string);
         }
     }
 }
