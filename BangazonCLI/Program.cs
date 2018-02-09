@@ -10,14 +10,8 @@ namespace BangazonCLI
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD
-            //Show the main menu on load
-=======
-
-            //Show the main menu on load   
->>>>>>> 617561cae79f39a72784441d445aba993aebc249
+            //Show the main menu on load  
             MainMenu.Show();
-
         }
     }
 }

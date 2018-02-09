@@ -18,11 +18,15 @@ namespace BangazonCLI
             Console.WriteLine("COMPLETE BANGAZON ORDER");
             Console.WriteLine("********************************");
             OrdersManager om = new OrdersManager();
-            om.GetActiveOrder(ActiveCustomerId);
+            // om.GetActiveOrder(ActiveCustomerId);
+            //Check if Customer has products in their Order
             if (om.CheckCart(ActiveCustomerId) == 0)
             {
-
+                Console.WriteLine("Please add some products to your order first. Press any key to return to main menu.");
+                Console.ReadKey();
+                FeatureMenu.Show(ActiveCustomerId);
             }
+            //If Customer has products they see this
             Console.WriteLine("Your order total is insertTotal. Ready to purchase");
             Console.Write("> ");
             string result = Console.ReadLine();
@@ -40,7 +44,7 @@ namespace BangazonCLI
                 }
                 Console.Write("> ");
                 int paymentType = int.Parse(Console.ReadLine());
-                om.AddPayment(paymentType);
+                // om.AddPayment(paymentType);
             }
             else
             {
