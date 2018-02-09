@@ -7,16 +7,17 @@ namespace BangazonCLI.Models
 {
     public class Payment
     {
-        public int PaymentId {get; set;}
-        public string PaymentType {get; set;}
-        public string AccountNumber {get; set;}
-        public int CustomerId {get; set;}
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public string PaymentType { get; set; }
+        public string AccountNumber { get; set; }
+
 
         //Constructor Method for Payment Type
         //Accepts arguments corresponding to the values defined above in the Payment class
-        public Payment(int id, string type, string num, int customer)
+        public Payment(int id, int customer, string type, string num)
         {
-            PaymentId = id;
+            Id = id;
             PaymentType = type;
             AccountNumber = num;
             CustomerId = customer;
