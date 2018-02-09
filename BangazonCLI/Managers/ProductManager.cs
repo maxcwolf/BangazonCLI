@@ -10,7 +10,7 @@ namespace BangazonCLI.Managers
 {
     public class ProductManager
     {
-        DatabaseInterface db = new DatabaseInterface();
+       private DatabaseInterface db;
         //public List<Product> ProductList =  new List<Product>();
 
         //This method adds a product to the database with the following arguments
@@ -19,7 +19,7 @@ namespace BangazonCLI.Managers
         {
             //create a datetime for order added
             DateTime _dateAdded = DateTime.Now;
-            return db.Insert($"INSERT INTO Product VALUES (null, {_customerId}, {_title}, {_description}, {_price}, {_quantity}, {_dateAdded}");
+            return db.Insert($"INSERT INTO Product VALUES (null, '{_customerId}', '{_title}', '{_description}', '{_price}', '{_quantity}',Date('Now'))");
         }
 
         //This method returns a list of products from the database for the active customer with the follwing argument
@@ -38,7 +38,7 @@ namespace BangazonCLI.Managers
                {
                    while (handler.Read())
                    {
-                       productlist.Add(new Product(handler.GetInt32(0), handler.GetInt32(1), handler.GetString(2), handler.GetString(3),handler.GetInt32(4), handler.GetInt32(5), handler.GetDateTime(6)));
+                       productlist.Add(new Product(handler.GetInt32(0), handler.GetInt32(1), handler.GetString(2), handler.GetString(3),handler.GetInt32(4), handler.GetInt32(5), handler.GetString(6)));
                    }
                });
                return productlist;
@@ -62,7 +62,7 @@ namespace BangazonCLI.Managers
                {
                    while (handler.Read())
                    {
-                       productlist.Add(new Product(handler.GetInt32(0), handler.GetInt32(1), handler.GetString(2), handler.GetString(3),handler.GetInt32(4), handler.GetInt32(5), handler.GetDateTime(6)));
+                       productlist.Add(new Product(handler.GetInt32(0), handler.GetInt32(1), handler.GetString(2), handler.GetString(3),handler.GetInt32(4), handler.GetInt32(5), handler.GetString(6)));
                    }
                });
                return productlist;
