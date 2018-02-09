@@ -9,8 +9,6 @@ namespace BangazonCLI.Managers
 {
     public class PaymentManager
     {
-        //List to hold all of the Payments
-        private List<Payment> _TestPaymentList = new List<Payment>();
 
         //Adds a Payment to the list
         public void Add(Payment Payment)
