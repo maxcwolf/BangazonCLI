@@ -49,17 +49,8 @@ namespace BangazonCLI
     ProductManager pm = new ProductManager();
 
     //Create New Product using values collected above
-      Product NewProduct = new Product(
-        1,
-        ActiveCustomerId,
-        Title,
-        Description,
-        Price,
-        Quantity
-        );
+    pm.AddProduct(ActiveCustomerId, Title, Description, Price, Quantity);
 
-      //add new product to product list
-      pm.AddProduct(NewProduct);
 
       //prompt user if they need to enter another product, or return to the feature menu
       Console.Clear();
