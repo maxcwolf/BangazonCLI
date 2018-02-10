@@ -73,7 +73,7 @@ namespace BangazonCLI.Tests
             int AmountInOrder = 0;
             //create a variable to hold the productId
             int ProductId = 9;
-            Assert.Equals(AmountInOrder,pm.CheckForProductsOnOrder(ProductId));
+            Assert.Equal(AmountInOrder,pm.CheckForProductOnOrder(ProductId));
         }
     }
 }
