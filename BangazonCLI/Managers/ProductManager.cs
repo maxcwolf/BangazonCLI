@@ -68,6 +68,26 @@ namespace BangazonCLI.Managers
                return productlist;
         }
 
+        //This method checks the orderprodut table to see if it contains any instances of a product
+        public int CheckForProductOnOrder(int _productId)
+        {
+            int CountTotal = 0;
+            // create query string using productId
+            string ProductOrderQuery =
+                        $@"SELECT Count(*) as orderAmt
+                        FROM OrderProduct
+                        WHERE ProductId = '{_productId}'";
+
+            db.Query(ProductOrderQuery, (SqliteDataReader handler) =>
+            {
+                while (handler.Read())
+                {
+                 CountTotal = Convert.ToInt32(handler["orderAmt"]);
+                }
+            });
+                return CountTotal;
+        }
+
         //Constructor method that takes in a connection_string to create the database interface.
         //This has a default value of the Environmental variable of the production database
         //When the test database is desired you can pass in the string "BANGAZON_CLI_TEST" in as an argument
