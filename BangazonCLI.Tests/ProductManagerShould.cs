@@ -131,13 +131,29 @@ namespace BangazonCLI.Tests
         [Fact]
         public void GetSingleProductById()
         {
-            //create a list to hold product
-            List<Product> ProductList = new List<Product>();
+            //create date time to use in product comparison
+            var format = "yyyy-MM-dd";
+            DateTime Now = DateTime.Now;
+
+            //Convert DateTime to String
+            String DateString = Now.ToString(format);
+
+            //Add a product to the DB
+            int _productId = pm.AddProduct(1, "GetMeById", "Test Product", 100000, 1);
+
+            Product CompareProduct = new Product(_productId, 1, "GetMeById", "Test Product", 100000, 1, DateString);
+
+            List<Product> AddedProduct = pm.GetSingleProductById(_productId);
 
 
+            Assert.Equal(CompareProduct.Id, AddedProduct[0].Id);
+            Assert.Equal(CompareProduct.Title, AddedProduct[0].Title);
+            Assert.Equal(CompareProduct.Description, AddedProduct[0].Description);
+            Assert.Equal(CompareProduct.Price, AddedProduct[0].Price);
+            Assert.Equal(CompareProduct.Quantity, AddedProduct[0].Quantity);
+            Assert.Equal(CompareProduct.DateAdded, AddedProduct[0].DateAdded);
+        }
 
-            Assert.Contains(ProductList,pm.GetSingleProduct(_productId));
         }
 
     }
-}
