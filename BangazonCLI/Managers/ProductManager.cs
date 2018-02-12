@@ -124,7 +124,7 @@ namespace BangazonCLI.Managers
                         FROM Product
                         Where Id = '{_productId}'";
                 //send nonQueryString to the database
-                db.Delete(nonQueryString);
+                db.ExecuteNonQuery(nonQueryString);
 
                 //send confirmation message to the terminal
                 Console.WriteLine();
