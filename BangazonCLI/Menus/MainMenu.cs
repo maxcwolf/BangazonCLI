@@ -33,7 +33,7 @@ namespace BangazonCLI.Menus
             } else if (choice == 2)
             {
                 ActiveCustomerMenu.Show();
-            }
+            } 
         }
     }
 }

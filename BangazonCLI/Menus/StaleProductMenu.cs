@@ -31,12 +31,15 @@ namespace BangazonCLI.Menus
             {
                 StaleProductList.ForEach(p =>
                     {
-                        Console.WriteLine($"{StaleProductList.IndexOf(p) + 1} : ");
-                        
+                        Console.WriteLine($"{StaleProductList.IndexOf(p) + 1} : {p.Title}");
                     }
                 );
             }
             
+            Console.WriteLine();
+            Console.WriteLine("Press Any Key To Return to Main Menu");
+            Console.ReadKey();
+            MainMenu.Show();
         }
     }
 }
