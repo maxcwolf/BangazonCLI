@@ -16,23 +16,31 @@ namespace BangazonCLI.Menus
             //Clear any prior menu
             Console.Clear();
             //Main menu that user is initially presented with
-            Console.WriteLine ("WELCOME TO THE BANGAZON CLI");
-            Console.WriteLine ("*********************************");
-            Console.WriteLine ("1. Add a new customer");
-            Console.WriteLine ("2. Select active customer");
-			Console.Write ("> ");
+            Console.WriteLine("WELCOME TO THE BANGAZON CLI");
+            Console.WriteLine("*********************************");
+            Console.WriteLine("1. Add a new customer");
+            Console.WriteLine("2. Select active customer");
+            Console.WriteLine("3. Show Overall Product Popularity");
+            Console.WriteLine("4. Show Stale Products");
 
-			//Read the user choice and lead to the next menu
-            int choice; //create int variable to store the user choice
-			Int32.TryParse (Console.ReadLine(), out choice); //convert the string obtained thru ReadLine() to an int and store it in the choice variable
 
-            //If 1 is selected, show the add customer menu
-            if (choice == 1)
+            Console.Write("> ");
+            //Store the key pressed by the user
+            var choice = Console.ReadLine();
+
+            switch (choice)
             {
-                AddCustomerMenu.Show();
-            } else if (choice == 2)
-            {
-                ActiveCustomerMenu.Show();
+                case "1":
+                    AddCustomerMenu.Show();
+                    break;
+                case "2":
+                    ActiveCustomerMenu.Show();
+                    break;
+                case "3":
+                    ProductPopularityReportMenu.Show();
+                    break;
+                case "4":
+                    break;
             }
         }
     }

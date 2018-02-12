@@ -1,4 +1,4 @@
-//Author: Paul Ellis; Purpose: Payment class and assocaited methods
+//Author: Paul Ellis; Purpose: Payment class
 
 
 using System;
