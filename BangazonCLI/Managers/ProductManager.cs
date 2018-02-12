@@ -132,5 +132,33 @@ namespace BangazonCLI.Managers
             }
         }
 
+        //This method will return a single product when it is passed the product Id.
+        //_productId = int, id of the product selected by the user
+
+        public Product GetSingleProductById(int _productId)
+        {
+            //Create the query that will be passed to the database
+
+            string SingleProductQuery =
+                        $@"SELECT Id, CustomerId, Title, Description, Price, Quantity
+                        FROM Product
+                        WHERE Id = '{_productId}'";
+
+            //query the database
+
+            db.Query(SingleProductQuery, (SqliteDataReader handler) =>
+               {
+                   while (handler.Read())
+                   {
+                       Product ReturnedProduct = (new Product(handler.GetInt32(0)));
+                   }
+               });
+               return productlist;
+
+
+
+
+        }
+
     }
 }
