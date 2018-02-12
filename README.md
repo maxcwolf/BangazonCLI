@@ -38,5 +38,11 @@ To Delete a product.
    you feedback if it has been successful.
 5. You will be returned to the remove product menu, to exit to the previous menu type "q" and press enter.
 
+**Complete an Order**<br>
+To complete an order:
+1. Select an Active Customer (option 2).
+2. Select the option to Complete an Order (option 4).
+3. Enter 'Y' to complete the Order or 'N' to return to Menu.
+4. Select a Payment Option. 
 
-
+Upon completion of Step 4, the user will be taken back to the main menu.
