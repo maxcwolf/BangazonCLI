@@ -80,7 +80,7 @@ namespace BangazonCLI.Managers
             //SQL statement to return the number of the product available - finds the quantity for sale and
             //subtracts the number of that product that has been added to orders
 
-            string QueryString = $@"SELECT p.Quantity, COUNT(op.id), p.Quantity - COUNT(op.id), P.Id FROM Product P
+            string QueryString = $@"SELECT p.Quantity - COUNT(op.id) FROM Product P
 			LEFT JOIN OrderProduct op
             ON p.Id = op.ProductId
 			WHERE P.ID = {ProductId}

@@ -33,18 +33,16 @@ namespace BangazonCLI.Menus
             Console.WriteLine("*********************************");
             Console.WriteLine();
 
+            //Remove all items that do not have available quantity
+            //TODO rewrite method to return the correct value
+            productList = productList.Where(p => orderProductManager.FindProductAvailability(p.Id)>0).ToList();
+
             //Add a line for each product where the number reflects the index in the producList
             productList.ForEach(p =>
             {
-                //Check to make sure that there is quantity available to sell
-                int Available = orderProductManager.FindProductAvailability(p.Id);
-
-                //If there is a quantity available, display the product
-                if(Available > 0)
-                {
-                    Console.WriteLine($"{productList.IndexOf(p) + 1}. {p.Title}");
-                }
+                Console.WriteLine($"{productList.IndexOf(p) + 1}. {p.Title}");
             });
+
             Console.WriteLine();
             Console.WriteLine("Enter 'Q' to Return To Main Menu");
             Console.WriteLine();
