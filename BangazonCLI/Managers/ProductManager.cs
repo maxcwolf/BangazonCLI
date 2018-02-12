@@ -82,6 +82,7 @@ namespace BangazonCLI.Managers
             {
                 while (handler.Read())
                 {
+                 //read the amount returned from the database as "orderAmt"
                  CountTotal = Convert.ToInt32(handler["orderAmt"]);
                 }
             });
