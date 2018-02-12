@@ -71,9 +71,14 @@ namespace BangazonCLI.Managers
             //Return the list
             return OrderProductByOrderId;
         }
+
+        //Method to find the total number of a product that is still available for sale
         public int FindProductAvailability(int ProductId)
         {
             int available = 0;
+
+            //SQL statement to return the number of the product available - finds the quantity for sale and
+            //subtracts the number of that product that has been added to orders
 
             string QueryString = $@"SELECT p.Quantity, COUNT(op.id), p.Quantity - COUNT(op.id), P.Id FROM Product P
 			LEFT JOIN OrderProduct op

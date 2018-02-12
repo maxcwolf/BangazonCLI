@@ -36,7 +36,10 @@ namespace BangazonCLI.Menus
             //Add a line for each product where the number reflects the index in the producList
             productList.ForEach(p =>
             {
+                //Check to make sure that there is quantity available to sell
                 int Available = orderProductManager.FindProductAvailability(p.Id);
+
+                //If there is a quantity available, display the product
                 if(Available > 0)
                 {
                     Console.WriteLine($"{productList.IndexOf(p) + 1}. {p.Title}");
