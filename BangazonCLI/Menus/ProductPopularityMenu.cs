@@ -58,13 +58,13 @@ namespace BangazonCLI.Menus
                     //if the return count isn't the last one, write the row
                     if (returnCount != TopThree.AsEnumerable().LongCount())
                     {
-                        Console.WriteLine($"{ProductName,-20}{r.Orders,-11}{r.Purchasers,-15}${r.Revenue,-15}");
+                        Console.WriteLine($"{ProductName,-20}{r.Orders,-11}{r.Purchasers,-15}{r.Revenue,-15}");
                     }
                     //if the return count is the last one, we want a star line above it
                     else
                     {
                         Console.WriteLine($"{StarLine}");
-                        Console.WriteLine($"{ProductName,-20}{r.Orders,-11}{r.Purchasers,-15}${r.Revenue,-15}");
+                        Console.WriteLine($"{ProductName,-20}{r.Orders,-11}{r.Purchasers,-15}{r.Revenue,-15}");
                     }
                 }
             );

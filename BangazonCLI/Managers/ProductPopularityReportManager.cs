@@ -44,7 +44,7 @@ namespace BangazonCLI.Managers
                         {
                             //for each row returned from the database, Add a new ProductPopularityViewModel to the results list
                             results.Add(new ProductPopularityReportViewModel( reader.GetString(0), reader.GetInt32(1).ToString("#,##0"),
-                            reader.GetInt32(2).ToString("#,##0"), reader.GetInt32(3).ToString("#,##0")));
+                            reader.GetInt32(2).ToString("#,##0"), (reader.GetDouble(3)/100).ToString("C")));
                             //ToString method above injects commas in the thousands place
                         }
                     }
