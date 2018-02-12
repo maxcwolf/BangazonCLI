@@ -60,6 +60,7 @@ namespace BangazonCLI.Menus
                         CompleteOrderMenu.Show(ActiveUserId);
                         break;
                     case "5":
+                        RemoveProductMenu.Show(ActiveUserId);
                         break;
                     case "6":
                         break;

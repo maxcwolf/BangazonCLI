@@ -11,8 +11,16 @@ namespace BangazonCLI.Managers
     public class ProductManager
     {
        private DatabaseInterface db;
-        //public List<Product> ProductList =  new List<Product>();
 
+        //Constructor method that takes in a connection_string to create the database interface.
+        //This has a default value of the Environmental variable of the production database
+        //When the test database is desired you can pass in the string "BANGAZON_CLI_TEST" in as an argument
+        //If no string is passed in the default value will be used
+        public ProductManager(string connection_string = "BANGAZON_CLI")
+        {
+            //instantiate the databaseInterface with the connection_string
+            db = new DatabaseInterface(connection_string);
+        }
         //This method adds a product to the database with the following arguments
         // NewProduct
         public int AddProduct(int _customerId, string _title, string _description, int _price,int _quantity)
@@ -68,14 +76,61 @@ namespace BangazonCLI.Managers
                return productlist;
         }
 
-        //Constructor method that takes in a connection_string to create the database interface.
-        //This has a default value of the Environmental variable of the production database
-        //When the test database is desired you can pass in the string "BANGAZON_CLI_TEST" in as an argument
-        //If no string is passed in the default value will be used
-        public ProductManager(string connection_string = "BANGAZON_CLI")
+        //This method checks the orderprodut table to see if it contains any instances of a product
+        public int CheckForProductOnOrder(int _productId)
         {
-            //instantiate the databaseInterface with the connection_string
-            db = new DatabaseInterface(connection_string);
+            int CountTotal = 0;
+            // create query string using productId
+            string ProductOrderQuery =
+                        $@"SELECT Count(*) as orderAmt
+                        FROM OrderProduct
+                        WHERE ProductId = '{_productId}'";
+
+            db.Query(ProductOrderQuery, (SqliteDataReader handler) =>
+            {
+                while (handler.Read())
+                {
+                 //read the amount returned from the database as "orderAmt"
+                 CountTotal = Convert.ToInt32(handler["orderAmt"]);
+                }
+            });
+                return CountTotal;
         }
+        //This method will delete a customer product it takes the argument of _productId, it checks if the product
+        //id exists in the order product table first, if it does not it will delete otherwise it will print out a
+        //warning to the customer
+        //_productId = an integer refering to the product Id
+
+        public void DeleteCustomerProduct(int _productId)
+        {
+            //check if product exists on the order product table
+            int CountTotal = CheckForProductOnOrder(_productId);
+
+            //if the value returned is > 0, do not delete, console writeline an error message
+
+            if (CountTotal > 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Sorry, that product exists in customer orders and cannot be deleted.");
+                Console.WriteLine("Please pick another product");
+                Console.WriteLine();
+
+            }
+            else
+            {
+                //create nonQueryString to delete product from database
+                string nonQueryString =
+                        $@"DELETE
+                        FROM Product
+                        Where Id = '{_productId}'";
+                //send nonQueryString to the database
+                db.ExecuteNonQuery(nonQueryString);
+
+                //send confirmation message to the terminal
+                Console.WriteLine();
+                Console.WriteLine("The Product has been successfully deleted");
+            }
+        }
+
     }
 }
