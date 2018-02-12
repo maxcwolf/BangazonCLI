@@ -10,7 +10,7 @@ namespace BangazonCLI
 {
     public class CompleteOrderMenu
     {
-        //This method will prompt the user tif they wat to complete their order, show the total of order, and give them payment options.
+        //This method will ask the user if they want to complete their order, show the total of order, and give them payment options.
         // ActiveCustomerId - The id number for the active customer
         public static void Show(int ActiveCustomerId)
         {
@@ -28,8 +28,9 @@ namespace BangazonCLI
             }else {
                 om.GetActiveOrder(ActiveCustomerId);
             }
-            //If Customer has products they see this
+            //If Customer has products they will see a dollar amount of their Order total.
             double total = om.getOrderTotal(OrderID);
+            //format the total
             string tot = total.ToString("f2");
             Console.WriteLine($"Your order total is $ {tot}. Ready to purchase");
             Console.Write("> Y/N ");
@@ -48,6 +49,7 @@ namespace BangazonCLI
                 }
                 Console.Write("> ");
                 int paymentType = int.Parse(Console.ReadLine());
+                //Update database with paymentID and Closed date
                 om.AddPaymentTypeToOrder(paymentType, OrderID);
                 Console.Write("Order Completed.");
                 FeatureMenu.Show(ActiveCustomerId);

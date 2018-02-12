@@ -19,7 +19,6 @@ namespace BangazonCLI.Managers
         public int GetActiveOrder(int ActiveCustomerId)
         {
             //return active order, if there isn't one create an Order
-
             int oId = 0;
             _db.Query($"SELECT Id FROM Orders WHERE CustomerId = {ActiveCustomerId} AND PaymentId IS NULL", (SqliteDataReader reader) =>
             {
@@ -40,7 +39,7 @@ namespace BangazonCLI.Managers
                 return id;
             }
         }
-
+        //This method executes a SQL statement that queries the Price of the Order selected
         public double getOrderTotal(int OrderId)
         {
             double t = 0;
@@ -65,11 +64,6 @@ namespace BangazonCLI.Managers
             return 1;
         }
 
-        //This method  returns a single order by Order Id.
-        public Orders GetOrderByOrderId(int id)
-        {
-            return OrdersList.Where(o => o.Id == id).Single();
-        }
         //This method gets Active Order; assigns a paymentId, and a Close date.
         public bool AddPaymentTypeToOrder(int payId, int orderId)
         {
