@@ -68,7 +68,6 @@ namespace BangazonCLI.Tests
             //the NewProduct should not be on the GetNonActiveUserProduct list
             Assert.DoesNotContain(NewProduct, pm.GetNonActiveUserProduct(1));
         }
-
         [Fact]
         public void CheckForProductsOnOrderProductsTable()
         {
@@ -86,6 +85,7 @@ namespace BangazonCLI.Tests
 
             Assert.Equal(ProductsInTable,pm.CheckForProductOnOrder(NewProductId));
         }
+
 
         [Fact]
         public void ProductShouldBeDeletedFromDatabase ()
@@ -107,6 +107,7 @@ namespace BangazonCLI.Tests
 
             //Knowing That Product creates is in the database - assert that it has been removed
             Assert.DoesNotContain(CompareProduct1, pm.GetCustomerProducts(8));
+
             //Add New Product
             int _id2 = pm.AddProduct(8,"NotToBeDeleted","A Product To Not Be Deleted",100000, 1);
 
@@ -124,7 +125,19 @@ namespace BangazonCLI.Tests
             //Assert that the last product added, is still there and not deleted by equating the id's and descriptions
             Assert.Equal(CompareProduct2.Id, AllProduct[AllProduct.Count-1].Id);
             Assert.Equal(CompareProduct2.Description, AllProduct[AllProduct.Count-1].Description);
-
         }
+
+
+        [Fact]
+        public void GetSingleProductById()
+        {
+            //create a list to hold product
+            List<Product> ProductList = new List<Product>();
+
+
+
+            Assert.Contains(ProductList,pm.GetSingleProduct(_productId));
+        }
+
     }
 }
