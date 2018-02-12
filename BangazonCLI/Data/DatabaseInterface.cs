@@ -40,8 +40,9 @@ namespace BangazonCLI.Data
             }
         }
 
-        //Delete from the database - this takes a SQL command and executes it as a non query
-        public void Delete(string command)
+        //ExecuteNonQuery to the database - this takes a SQL command and executes it as a non query
+        //Examle uses would be deletion or update
+        public void ExecuteNonQuery(string command)
         {
             using (_connection)
             {

@@ -36,8 +36,13 @@ namespace BangazonCLI.Menus
             //Add a line for each product where the number reflects the index in the producList
             productList.ForEach(p =>
             {
-                Console.WriteLine($"{productList.IndexOf(p) + 1}. {p.Title}");
+                int Available = orderProductManager.FindProductAvailability(p.Id);
+                if(Available > 0)
+                {
+                    Console.WriteLine($"{productList.IndexOf(p) + 1}. {p.Title}");
+                }
             });
+            Console.WriteLine();
             Console.WriteLine("Enter 'Q' to Return To Main Menu");
             Console.WriteLine();
             Console.Write("> ");

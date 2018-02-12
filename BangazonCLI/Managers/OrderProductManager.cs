@@ -75,10 +75,11 @@ namespace BangazonCLI.Managers
         {
             int available = 0;
 
-            string QueryString = $@"SELECT prod_avail.Quantity - COUNT(op.id) FROM OrderProduct op
-            JOIN (SELECT Quantity, Id FROM Product WHERE Id = {ProductId}) prod_avail
-            ON op.ProductId = prod_avail.Id
-            Where op.ProductId = {ProductId}";
+            string QueryString = $@"SELECT p.Quantity, COUNT(op.id), p.Quantity - COUNT(op.id), P.Id FROM Product P
+			LEFT JOIN OrderProduct op
+            ON p.Id = op.ProductId
+			WHERE P.ID = {ProductId}
+			GROUP BY op.ProductId";
 
             db.Query(
             //Send SQL statement into database to return OrderProduct that match the passed in OrderId
@@ -94,10 +95,10 @@ namespace BangazonCLI.Managers
             return available;
         }
 
-        //Call the db.Delete method with a SQL statemnt to delete the OrderProduct with the passed in Id #
+        //Call the db.ExecuteNonQuery method with a SQL statemnt to delete the OrderProduct with the passed in Id #
         public void DeleteOrderProduct(int OrderProductId)
         {
-            db.Delete($"DELETE FROM OrderProduct WHERE Id = {OrderProductId}");
+            db.ExecuteNonQuery($"DELETE FROM OrderProduct WHERE Id = {OrderProductId}");
         }
 
         //Constructor method that takes in a connection_string to create the database interface.
