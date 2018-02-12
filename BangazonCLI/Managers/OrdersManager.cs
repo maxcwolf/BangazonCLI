@@ -19,17 +19,30 @@ namespace BangazonCLI.Managers
         public int GetActiveOrder(int ActiveCustomerId)
         {
             //return active order, if there isn't one moves to the catch: create an Order
-            try
+
+            int oId = 0;
+            _db.Query($"SELECT Id FROM Orders WHERE CustomerId = {ActiveCustomerId} AND PaymentId IS NULL", (SqliteDataReader reader) =>
             {
-                return OrdersList.Where(o => o.CustomerId == ActiveCustomerId && o.PaymentId == null).Single().Id;
+                while (reader.Read())
+                {
+                    oId = reader.GetInt32(0);
+                }
+            });
+            if (oId != 0)
+            {
+                return oId;
             }
-            catch
+            else
             {
                 DateTime now = DateTime.Now;
                 int id = _db.Insert($"INSERT INTO Orders VALUES (null, {ActiveCustomerId}, null, '{now}', null )");
                 Console.WriteLine("Order Created.");
                 return id;
             }
+
+
+
+
         }
         //Checks to see if Customer has Products in their Active Order
         public int CheckCart(int OrderId)
