@@ -27,10 +27,8 @@ namespace BangazonCLI.Menus
             Console.WriteLine("4. Complete an order");
             Console.WriteLine("5. Remove customer product");
             Console.WriteLine("6. Update product information");
-            Console.WriteLine("7. Show stale products");
-            Console.WriteLine("8. Show customer revenue report");
-            Console.WriteLine("9. Show overall product popularity");
-            Console.WriteLine("10. Leave Bangazon!");
+            Console.WriteLine("7. Show customer revenue report");
+            Console.WriteLine("8. Leave Bangazon!");
             Console.WriteLine("Press 'Q' to return to Main Menu");
             Console.Write("> ");
 
@@ -60,16 +58,13 @@ namespace BangazonCLI.Menus
                         CompleteOrderMenu.Show(ActiveUserId);
                         break;
                     case "5":
+                        RemoveProductMenu.Show(ActiveUserId);
                         break;
                     case "6":
                         break;
                     case "7":
                         break;
                     case "8":
-                        break;
-                    case "9":
-                        break;
-                    case "10":
                         break;
                     default:
                         FeatureMenu.Show(ActiveUserId);
