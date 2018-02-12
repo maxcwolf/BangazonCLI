@@ -18,7 +18,7 @@ namespace BangazonCLI.Managers
         //This method returns the Active Order or creates an Order if there isn't an active Order.
         public int GetActiveOrder(int ActiveCustomerId)
         {
-            //return active order, if there isn't one moves to the catch: create an Order
+            //return active order, if there isn't one create an Order
 
             int oId = 0;
             _db.Query($"SELECT Id FROM Orders WHERE CustomerId = {ActiveCustomerId} AND PaymentId IS NULL", (SqliteDataReader reader) =>
@@ -35,14 +35,24 @@ namespace BangazonCLI.Managers
             else
             {
                 DateTime now = DateTime.Now;
-                int id = _db.Insert($"INSERT INTO Orders VALUES (null, {ActiveCustomerId}, null, '{now}', null )");
+                int id = _db.Insert($"INSERT INTO Orders VALUES (null, {ActiveCustomerId}, null, date('now'), null )");
                 Console.WriteLine("Order Created.");
                 return id;
             }
+        }
 
-
-
-
+        public double getOrderTotal(int OrderId)
+        {
+            double t = 0;
+            double total = 0;
+            _db.Query($"SELECT SUM(p.Price) From OrderProduct op JOIN Product p On op.ProductId = p.Id Where OrdersId = {OrderId}", (SqliteDataReader reader) =>
+            {
+                while (reader.Read())
+                {
+                    t = reader.GetInt32(0);
+                }
+            });
+            return total = t / 100;
         }
         //Checks to see if Customer has Products in their Active Order
         public int CheckCart(int OrderId)
@@ -64,7 +74,7 @@ namespace BangazonCLI.Managers
         public bool AddPaymentTypeToOrder(int payId, int orderId)
         {
             DateTime now = DateTime.Now;
-            _db.Insert($"UPDATE Orders SET PaymentId = {payId}, Closed = '{now}' WHERE Orders.Id = {orderId}");
+            _db.Insert($"UPDATE Orders SET PaymentId = {payId}, Closed = date('now') WHERE Orders.Id = {orderId}");
             return true;
         }
         //Connecting to Environmental Variable
