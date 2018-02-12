@@ -1,6 +1,9 @@
 # BangazonCLI
 
-
+**See A Report of Most Popular Products**<br>
+To see a report of the most popular products:
+1. From the Main Menu, Select 'Show Overall Product Popularity' (Option 3).
+2. After viewing the report, press any key to return to the Main Menu.
 **Add Product To Order**<br>
 To add a product:
 1. Make a customer active in the system (option 2).
