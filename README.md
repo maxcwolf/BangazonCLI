@@ -20,3 +20,12 @@ To add a payment:
 4. To exit prior to completion, type "q" and press enter.
 
 Upon completion, the user will be taken back to the main menu.  Created payments are available in the Order process.
+
+**Complete an Order**<br>
+To complete an order:
+1. Select an Active Customer (option 2).
+2. Select the option to Complete an Order (option 4).
+3. Enter 'Y' to complete the Order or 'N' to return to Menu.
+4. Select a Payment Option. 
+
+Upon completion of Step 4, the user will be taken back to the main menu.
