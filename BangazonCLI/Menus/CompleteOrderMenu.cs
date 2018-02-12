@@ -10,7 +10,7 @@ namespace BangazonCLI
 {
     public class CompleteOrderMenu
     {
-        //This method will prompt the user tif they wat to complete their order, show the total of order, and give them payment options.
+        //This method will ask the user if they want to complete their order, show the total of order, and give them payment options.
         // ActiveCustomerId - The id number for the active customer
         public static void Show(int ActiveCustomerId)
         {
@@ -18,17 +18,22 @@ namespace BangazonCLI
             Console.WriteLine("COMPLETE BANGAZON ORDER");
             Console.WriteLine("********************************");
             OrdersManager om = new OrdersManager();
-            // om.GetActiveOrder(ActiveCustomerId);
+            int OrderID = om.GetActiveOrder(ActiveCustomerId);
             //Check if Customer has products in their Order
-            if (om.CheckCart(ActiveCustomerId) == 0)
+            if (om.CheckCart(OrderID) == 0)
             {
                 Console.WriteLine("Please add some products to your order first. Press any key to return to main menu.");
                 Console.ReadKey();
                 FeatureMenu.Show(ActiveCustomerId);
+            }else {
+                om.GetActiveOrder(ActiveCustomerId);
             }
-            //If Customer has products they see this
-            Console.WriteLine("Your order total is insertTotal. Ready to purchase");
-            Console.Write("> ");
+            //If Customer has products they will see a dollar amount of their Order total.
+            double total = om.getOrderTotal(OrderID);
+            //format the total
+            string tot = total.ToString("f2");
+            Console.WriteLine($"Your order total is $ {tot}. Ready to purchase");
+            Console.Write("> Y/N ");
             string result = Console.ReadLine();
             //If yes display payment types.
             if (result.ToLower() == "y")
@@ -44,7 +49,10 @@ namespace BangazonCLI
                 }
                 Console.Write("> ");
                 int paymentType = int.Parse(Console.ReadLine());
-                // om.AddPayment(paymentType);
+                //Update database with paymentID and Closed date
+                om.AddPaymentTypeToOrder(paymentType, OrderID);
+                Console.Write("Order Completed.");
+                FeatureMenu.Show(ActiveCustomerId);
             }
             else
             {
