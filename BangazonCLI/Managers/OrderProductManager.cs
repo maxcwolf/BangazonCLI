@@ -29,16 +29,17 @@ namespace BangazonCLI.Managers
             //Send SQL statement into database to return ALL from the OrderProduct table
             db.Query(
                 "SELECT * FROM OrderProduct",
-                (SqliteDataReader reader) => {
-                        //Callback function to iterate through the returned object
-                        //Create a new instance of the OrderProduct class by scraping the id from column 0
-                        //The OrderId from column 1 and the Product Id from Column 2
-                        //Add the new OrderProduct to the list
-                        while (reader.Read ())
-                        {
-                            AllOrderProducts.Add(new OrderProduct( reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
-                        }
+                (SqliteDataReader reader) =>
+                {
+                    //Callback function to iterate through the returned object
+                    //Create a new instance of the OrderProduct class by scraping the id from column 0
+                    //The OrderId from column 1 and the Product Id from Column 2
+                    //Add the new OrderProduct to the list
+                    while (reader.Read())
+                    {
+                        AllOrderProducts.Add(new OrderProduct(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
                     }
+                }
             );
 
             //Return the list
@@ -54,26 +55,55 @@ namespace BangazonCLI.Managers
             db.Query(
             //Send SQL statement into database to return OrderProduct that match the passed in OrderId
                 $"SELECT * FROM OrderProduct WHERE OrderProduct.OrdersId = {OrderId}",
-                (SqliteDataReader reader) => {
-                        while (reader.Read ())
-                        {
-                            //Callback function to iterate through the returned object
-                            //Create a new instance of the OrderProduct class by scraping the id from column 0
-                            //The OrderId from column 1 and the Product Id from Column 2
-                            //Add the new OrderProduct to the list
-                            OrderProductByOrderId.Add(new OrderProduct( reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
-                        }
+                (SqliteDataReader reader) =>
+                {
+                    while (reader.Read())
+                    {
+                        //Callback function to iterate through the returned object
+                        //Create a new instance of the OrderProduct class by scraping the id from column 0
+                        //The OrderId from column 1 and the Product Id from Column 2
+                        //Add the new OrderProduct to the list
+                        OrderProductByOrderId.Add(new OrderProduct(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2)));
                     }
+                }
             );
 
             //Return the list
             return OrderProductByOrderId;
         }
 
-        //Call the db.Delete method with a SQL statemnt to delete the OrderProduct with the passed in Id #
+        //Method to find the total number of a product that is still available for sale
+        public int FindProductAvailability(int ProductId)
+        {
+            int available = 0;
+
+            //SQL statement to return the number of the product available - finds the quantity for sale and
+            //subtracts the number of that product that has been added to orders
+
+            string QueryString = $@"SELECT p.Quantity - COUNT(op.id) FROM Product P
+			LEFT JOIN OrderProduct op
+            ON p.Id = op.ProductId
+			WHERE P.ID = {ProductId}
+			GROUP BY op.ProductId";
+
+            db.Query(
+            //Send SQL statement into database to return OrderProduct that match the passed in OrderId
+                QueryString,
+                (SqliteDataReader reader) =>
+                {
+                    reader.Read();
+                    available = reader.GetInt32(0);
+                }
+            );
+
+            //Return the list
+            return available;
+        }
+
+        //Call the db.ExecuteNonQuery method with a SQL statemnt to delete the OrderProduct with the passed in Id #
         public void DeleteOrderProduct(int OrderProductId)
         {
-            db.Delete($"DELETE FROM OrderProduct WHERE Id = {OrderProductId}");
+            db.ExecuteNonQuery($"DELETE FROM OrderProduct WHERE Id = {OrderProductId}");
         }
 
         //Constructor method that takes in a connection_string to create the database interface.
