@@ -12,11 +12,13 @@ namespace BangazonCLI.Tests
 
         //Create global variables for tests
         private ProductManager pm {get; set;}
+        private OrderProductManager opm {get; set;}
 
         //Constructor to instatiate ProductManager
         public ProductManagerShould()
         {
             this.pm = new ProductManager("BANGAZON_CLI_TEST");
+            this.opm = new OrderProductManager("BANGAZON_CLI_TEST");
         }
         [Fact]
         public void AddProductToProductTable()
@@ -98,15 +100,31 @@ namespace BangazonCLI.Tests
             String DateString = Now.ToString(format);
 
             //Create Product Comparison
-            Product CompareProduct = new Product(_id,8,"ToBeDeleted","A Product To Be Deleted",100000, 1,DateString);
+            Product CompareProduct1 = new Product(_id,8,"ToBeDeleted","A Product To Be Deleted",100000, 1,DateString);
 
             //Delete a product
             pm.DeleteCustomerProduct(_id);
 
-            //Get a list of products for a customer
-            List<Product> CustomerProducts = pm.GetCustomerProducts(8);
+            //Knowing That Product creates is in the database - assert that it has been removed
+            Assert.DoesNotContain(CompareProduct1, pm.GetCustomerProducts(8));
+            //Add New Product
+            int _id2 = pm.AddProduct(8,"NotToBeDeleted","A Product To Not Be Deleted",100000, 1);
 
-            Assert.DoesNotContain(CustomerProducts, pm.GetCustomerProducts(8));
+            //Add a product to the OrderProduct Table
+            opm.Add(1,_id2);
+
+            //Create Second Product To compare
+            Product CompareProduct2 = new Product(_id2,8,"NotToBeDeleted","A Product To Not Be Deleted",100000, 1,DateString);
+
+            //Attempt to delete product
+            pm.DeleteCustomerProduct(_id2);
+
+            //Get a list of customer products from the database
+            List<Product> AllProduct = pm.GetCustomerProducts(8);
+            //Assert that the last product added, is still there and not deleted by equating the id's and descriptions
+            Assert.Equal(CompareProduct2.Id, AllProduct[AllProduct.Count-1].Id);
+            Assert.Equal(CompareProduct2.Description, AllProduct[AllProduct.Count-1].Description);
+
         }
     }
 }
