@@ -29,5 +29,13 @@ namespace BangazonCLI.Models
 
 
         }
+        //this constructor is used for retrieving product in the update product menu and takes the 4 arguments as defined above
+        public Product( string title, string description, int price, int quantity)
+        {
+            this.Title = title;
+            this.Description = description;
+            this.Price = price;
+            this.Quantity = quantity;
+        }
     }
 }
