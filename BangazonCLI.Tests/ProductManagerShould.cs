@@ -52,9 +52,10 @@ namespace BangazonCLI.Tests
             //Use the AddProduct method to add a new product
             int _id = pm.AddProduct(1, "Washer", "A Washer", 100000, 1);
 
-           //Create a datetime variable to pass to my product constructors to test
+            //Create a datetime variable to pass to my product constructors to test
             var format = "yyyy-MM-dd";
             DateTime Now = DateTime.Now;
+
             //Convert DateTime to String
             String DateString = Now.ToString(format);
 
@@ -63,7 +64,7 @@ namespace BangazonCLI.Tests
 
 
             //the NewProduct should not be on the GetNonActiveUserProduct list
-           Assert.DoesNotContain(NewProduct, pm.GetNonActiveUserProduct(1));
+            Assert.DoesNotContain(NewProduct, pm.GetNonActiveUserProduct(1));
         }
 
         [Fact]
@@ -74,6 +75,38 @@ namespace BangazonCLI.Tests
             //create a variable to hold the productId
             int ProductId = 9;
             Assert.Equal(AmountInOrder,pm.CheckForProductOnOrder(ProductId));
+
+            //test to make sure that if it does exist it returns the expected amount
+            // create a variable to hold the expected amount
+            int ProductsInTable = 5;
+            //create a new variable to hold the productid
+            int NewProductId = 1;
+
+            Assert.Equal(ProductsInTable,pm.CheckForProductOnOrder(NewProductId));
+        }
+
+        [Fact]
+        public void ProductShouldBeDeletedFromDatabase ()
+        {   //Add a product to be deleted and return it's Id
+            int _id = pm.AddProduct(8, "ToBeDeleted", "A Product To Be Deleted", 100000, 1);
+
+            //create date time to use in product comparison
+            var format = "yyyy-MM-dd";
+            DateTime Now = DateTime.Now;
+
+            //Convert DateTime to String
+            String DateString = Now.ToString(format);
+
+            //Create Product Comparison
+            Product CompareProduct = new Product(_id,8,"ToBeDeleted","A Product To Be Deleted",100000, 1,DateString);
+
+            //Delete a product
+            pm.DeleteCustomerProduct(_id);
+
+            //Get a list of products for a customer
+            List<Product> CustomerProducts = pm.GetCustomerProducts(8);
+
+            Assert.DoesNotContain(CustomerProducts, pm.GetCustomerProducts(8));
         }
     }
 }
