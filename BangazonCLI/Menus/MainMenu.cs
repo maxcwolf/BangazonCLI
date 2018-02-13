@@ -40,6 +40,7 @@ namespace BangazonCLI.Menus
                     ProductPopularityReportMenu.Show();
                     break;
                 case "4":
+                    StaleProductMenu.Show();
                     break;
             }
         }
