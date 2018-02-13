@@ -23,7 +23,7 @@ namespace BangazonCLI.Managers
         {
             List<Payment> results = new List<Payment>();
             db.Query(
-                "SELECT * FROM Payment WHERE Payment.CustomerId == 1;",
+                $"SELECT * FROM Payment WHERE Payment.CustomerId == {CustomerId};",
                 (SqliteDataReader reader) => {
                         //Callback function to iterate through the returned object
                         while (reader.Read ())
