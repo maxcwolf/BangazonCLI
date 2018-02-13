@@ -21,7 +21,7 @@ To add a payment:
 
 Upon completion, the user will be taken back to the main menu.  Created payments are available in the Order process.
 
-Product<br>
+**Product**<br>
 To add a product.
 1. Select a customer (option 2).
 2. Select the option to add a product (option 2).
@@ -46,3 +46,42 @@ To complete an order:
 4. Select a Payment Option. 
 
 Upon completion of Step 4, the user will be taken back to the main menu.
+
+**View Stale Products**<br>
+To view a list of products that meet ANY of the following criteria :
+- Has never been added to an order, and has been in the system for more than 180 days
+- Has been added to an order, but the order hasn't been completed, and the order was created more than 90 days ago
+- Has been added to one, or more orders, and the order were completed, but there is remaining quantity for the product, and the product has been in the system for more than 180 days
+
+1. From the main menu select option 4
+2. All stale products will be displayed
+3. If there are no stale products in your system and wish to check the functionality, run the following sql script in you database browser, save the database and repeat step 1
+```
+
+INSERT INTO Product
+VALUES(null, 1, 'STALE REQ 1', 'Not ordered older than 180 days', 42134,  50, '2017-02-12');
+
+INSERT INTO Product
+VALUES(null, 2, "STALE REQ 2", "Added to an order but not purchased and the order is more than 90 days old", 42134,  33, '2017-10-02');
+
+INSERT INTO Orders
+VALUES(null, 1, null, '2017-10-08', null);
+
+INSERT INTO OrderProduct
+SELECT null, o.Id, p.Id
+FROM Orders o, Product p
+WHERE o.Created = '2017-10-08'
+AND p.Title = 'STALE REQ 2';
+
+INSERT INTO Product
+VALUES(null, 3, "STALE REQ 3", "Purchased, but with remaining quantity and it is more than 180 days old", 42134,  2, '2017-01-12');
+
+INSERT INTO Orders
+VALUES(null, 1, 1, '2017-12-12', '2017-12-12');
+
+INSERT INTO OrderProduct
+SELECT null, o.Id, p.Id
+FROM Orders o, Product p
+WHERE o.Created = '2017-12-12'
+AND p.Title = 'STALE REQ 3';
+```
