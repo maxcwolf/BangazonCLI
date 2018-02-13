@@ -1,5 +1,89 @@
 # BangazonCLI
 
+The Bangazon Command Line Interface allows a user to interact with the Bangazon database in the terminal environment.
+
+### Installation of SQLite (if needed)
+
+To get started, type the following command to check if you already have SQLite installed.
+
+```sh
+$ sqlite3
+```
+
+And you should see:
+
+```sh
+SQLite version 3.7.15.2 2014-08-15 11:53:05
+Enter ".help" for instructions
+Enter SQL statements terminated with a ";"
+sqlite>
+```
+
+If you do not see above result, then it means you do not have SQLite installed on your machine. Follow the appropriate instructions below.
+
+#### For Windows
+
+Go to [SQLite Download page](http://www.sqlite.org/download.html) and download the precompiled binaries for your machine. You will need to download `sqlite-shell-win32-*.zip` and `sqlite-dll-win32-*.zip` zipped files.
+
+Create a folder `C:\sqlite` and unzip the files in this folder which will give you `sqlite3.def`, `sqlite3.dll` and `sqlite3.exe` files.
+
+Add `C:\sqlite` to your [PATH environment variable](http://dustindavis.me/update-windows-path-without-rebooting/) and finally go to the command prompt and issue `sqlite3` command.
+
+#### For Mac
+
+First, try to install via Homebrew:
+
+```sh
+brew install sqlite3
+```
+
+If not, download the package from above. After downloading the files, follow these steps:
+
+```sh
+$tar -xvzf sqlite-autoconf-3071502.tar.gz
+$cd sqlite-autoconf-3071502
+$./configure --prefix=/usr/local
+$make
+$make install
+```
+
+### Installation of Dotnet Core (if needed)
+
+### For OSX Users:
+
+Install .NET Core
+
+https://www.microsoft.com/net/core#macos
+
+### For Windows Users
+
+https://www.microsoft.com/net/core#windows
+
+
+## Steps to install the code
+ - Create an environment variable for your database and test database files by adding the following statement to your shell script configuration ie .zshrc or .bashrc file
+ - Replace the path to the locations of the files in your system
+
+ ```
+export BANGAZON_CLI="/Users/christophermiller/workspace/Bangazon/BangazonCLI/BangazonCLI/Data/BangazonCLI.db"
+export BANGAZON_CLI_TEST="/Users/christophermiller/workspace/Bangazon/BangazonCLI/BangazonCLI.Tests/BangazonCLI_Test.db"
+ ```
+ - Save your shell script config and reload your terminal
+
+ - Clone the repo to your local machine
+ - Naviget to your desired directory and then use the following command 
+ ```
+ git clone git@github.com:StormyHares/BangazonCLI.git
+ ```
+
+ - Then:
+ ```
+ cd BangazonCLI/BangazonCLI/
+ dotnet restore
+ dotnet run
+ ```
+
+
 
 **Add Product To Order**<br>
 To add a product:
