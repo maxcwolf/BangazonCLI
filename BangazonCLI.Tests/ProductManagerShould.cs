@@ -173,14 +173,21 @@ namespace BangazonCLI.Tests
 
             //update product that was created with new values
             pm.UpdateExistingProduct(_productId, "Description", "NewDescription");
+            pm.UpdateExistingProduct(_productId, "Title", "NewTitle");
+            pm.UpdateExistingProduct(_productId, "Quantity", "10");
+            pm.UpdateExistingProduct(_productId, "Price", "2000");
 
 
             List<Product> ProductList = pm.GetSingleProductById(_productId);
             Product UpdatedProduct = ProductList[0];
 
-
-
             Assert.Equal(CompareProduct.Description, UpdatedProduct.Description);
+            Assert.Equal(CompareProduct.Title, UpdatedProduct.Title);
+            Assert.Equal(CompareProduct.Quantity, UpdatedProduct.Quantity);
+            Assert.Equal(CompareProduct.Price, UpdatedProduct.Price);
+            
+
+
         }
         }
 

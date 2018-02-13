@@ -27,7 +27,7 @@ namespace BangazonCLI.Managers
         {
             //create a datetime for order added
             DateTime _dateAdded = DateTime.Now;
-            return db.Insert($"INSERT INTO Product VALUES (null, '{_customerId}', '{_title}', '{_description}', '{_price}', '{_quantity}',Date('Now'))");
+            return db.Insert($"INSERT INTO Product VALUES (null, '{_customerId}', '{_title}', '{_description}', '{_price}', '{_quantity}',Date('Now','localtime'))");
         }
 
         //This method returns a list of products from the database for the active customer with the follwing argument
@@ -155,6 +155,45 @@ namespace BangazonCLI.Managers
                    }
                });
                return ReturnedProduct;
+        }
+
+        //This method will update an existing product given the following arguments
+        // -productId - the integer representing the product.Id in the product table
+        // updateProperty - this is the Property in the product table that is being updated it takes a string ie "Title", "Price", "Quantity", "Description"
+        // updateValue - The new value that will be placed into the Table - if it is price or quantity it will be converted to an integer before passed to database
+        public void UpdateExistingProduct(int _productId, string updateProperty, string updateValue)
+        {
+            int IntValue = 0;
+            string UpdateString = "";
+            //check if updateProperty is an integer field, Price or Quantity
+            if(updateProperty == "Price" || updateProperty == "Quantity")
+            {
+            // convert string value to integer
+            IntValue = Int32.Parse(updateValue);
+                //Build the SQL String to pass
+                UpdateString =
+                    $@"UPDATE Product
+                    SET '{updateProperty}' = '{IntValue}'
+                    WHERE Product.Id = '{_productId}'";
+
+            //pass string to database
+            db.ExecuteNonQuery(UpdateString);
+
+            }
+            else
+            {
+                //Build the SQL String to pass
+                UpdateString =
+                    $@"UPDATE Product
+                    SET '{updateProperty}' = '{updateValue}'
+                    WHERE Product.Id = '{_productId}'";
+            //pass string to databasae
+            db.ExecuteNonQuery(UpdateString);
+
+            }
+
+
+
         }
 
     }
