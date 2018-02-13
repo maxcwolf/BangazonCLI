@@ -98,6 +98,7 @@ namespace BangazonCLI.Tests
 
             //Convert DateTime to String
             String DateString = Now.ToString(format);
+            //Console.WriteLine(DateString);
 
             //Create Product Comparison
             Product CompareProduct1 = new Product(_id,8,"ToBeDeleted","A Product To Be Deleted",100000, 1,DateString);
@@ -153,7 +154,34 @@ namespace BangazonCLI.Tests
             Assert.Equal(CompareProduct.Quantity, AddedProduct[0].Quantity);
             Assert.Equal(CompareProduct.DateAdded, AddedProduct[0].DateAdded);
         }
+        [Fact]
+        public void UpdateExistingProduct()
+        {
+            //create date time to use in product comparison
+            var format = "yyyy-MM-dd";
+            DateTime Now = DateTime.Now;
 
+            //Convert DateTime to String
+            String DateString = Now.ToString(format);
+
+            //Add a product to the DB return it's Id to be used in the compare product
+            int _productId = pm.AddProduct(1, "OldTitle", "OldDescription", 1000, 1);
+
+            //create a product with different values to compare once the original product gets updated
+            Product CompareProduct = new Product(_productId, 1, "NewTitle", "NewDescription", 2000, 10, DateString);
+
+
+            //update product that was created with new values
+            pm.UpdateExistingProduct(_productId, "Description", "NewDescription");
+
+
+            List<Product> ProductList = pm.GetSingleProductById(_productId);
+            Product UpdatedProduct = ProductList[0];
+
+
+
+            Assert.Equal(CompareProduct.Description, UpdatedProduct.Description);
+        }
         }
 
     }
