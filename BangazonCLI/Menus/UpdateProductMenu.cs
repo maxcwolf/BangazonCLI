@@ -123,7 +123,7 @@ namespace BangazonCLI
             }
             else
             {
-                UpdateProductMenu.Show(ActiveCustomerId);
+                FeatureMenu.Show(ActiveCustomerId);
             }
         }
 
