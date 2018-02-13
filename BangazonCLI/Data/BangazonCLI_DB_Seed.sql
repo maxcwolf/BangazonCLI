@@ -296,34 +296,3 @@ VALUES(null, 10, 5);
 
 INSERT INTO OrderProduct
 VALUES(null, 11, 6);
-
--
-SELECT DISTINCT * FROM
-(SELECT p.* from Product p
-Where p.Id NOT IN (SELECT DISTINCT ProductId FROM OrderProduct) 
-AND julianday('now') - julianday(p.DateAdded) > 180
-UNION
-SELECT p.* FROM
-(SELECT  DISTINCT ProductId FROM OrderProduct op
-JOIN Orders o ON op.OrdersId = o.Id
-WHERE o.Closed is null and (julianday('now') - julianday(o.created)) > 90)
-JOIN Product p
-ON ProductId = p.Id
-WHERE ProductId NOT IN 
-(SELECT DISTINCT ProductId FROM OrderProduct op
-JOIN Orders o ON op.OrdersId = o.Id
-WHERE o.Closed is not null)
-UNION
-SELECT DISTINCT p.* FROM OrderProduct op
-JOIN Orders o ON op.OrdersId = o.Id
-JOIN Product p  ON op.ProductID = p.Id
-JOIN 
-(SELECT ProductId, COUNT(*) as Total FROM OrderProduct
-WHERE OrdersId in
-(SELECT Id FROM Orders
-WHERE Closed is not null)
-GROUP BY ProductId) total_sold
-ON p.Id = total_sold.ProductId
-WHERE o.Closed is not null
-AND julianday('now') - julianday(p.DateAdded) > 180
-AND p.Quantity > total_sold.Total)

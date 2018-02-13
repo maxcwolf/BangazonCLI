@@ -1,4 +1,6 @@
-//Author: Ray Medrano //Purpose: This Class handles all operations dealing with products
+//Author: Chris Miller
+ //Purpose: Class to execute the query to return the stale products
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +14,14 @@ namespace BangazonCLI.Managers
     {
         private DatabaseInterface db;
 
-        public List<Product> GetStaleProducts()
+        public List<StaleProductViewModel> GetStaleProducts()
         {
+
+            //This is 3 seperate queries that are unioned together to return the products that meet the requirements
+            //then joined with other tables to gather the rest of the info
+
             string QueryString = @"		
-            SELECT DISTINCT * FROM
+            SELECT DISTINCT stale.Title, c.Name, stale.Quantity,  stale.Quantity - COUNT(op.ProductId) FROM
                     /*REQ 1 - Find products that have not been added to an order,
                     and have been in the system for more than 180 days*/
                     (SELECT p.* from Product p
@@ -54,20 +60,29 @@ namespace BangazonCLI.Managers
                     ON p.Id = total_sold.ProductId
                     WHERE o.Closed is not null
                     AND julianday('now') - julianday(p.DateAdded) > 180
-                    AND p.Quantity > total_sold.Total)
+                    AND p.Quantity > total_sold.Total) stale
+            JOIN Customer c
+            ON CustomerId = c.Id
+			LEFT JOIN OrderProduct op
+            ON stale.Id = op.ProductId
+			GROUP BY op.ProductId
             ";
 
-            List<Product> StaleProductList = new List<Product>();
+            //Intantiate a list to hold the stale products
+            List<StaleProductViewModel> StaleProductList = new List<StaleProductViewModel>();
 
+            //Execute the query string
             db.Query(QueryString, (SqliteDataReader reader) => 
             {
                 while(reader.Read())
                 {
-                    Product p = new Product(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetInt32(4), reader.GetInt32(5), reader.GetString(6));
+                    //for each row in the result create an instance of the ViewModel and Add it to the list
+                    StaleProductViewModel p = new StaleProductViewModel(reader.GetString(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3));
                     StaleProductList.Add(p);
                 }
             });
 
+            //Return the list of stale products
             return StaleProductList;
         }
 
